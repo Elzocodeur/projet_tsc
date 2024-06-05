@@ -3,7 +3,11 @@
 
 // import { Cargaison } from "./Model/cargaison";
 
+// import Swal from 'sweetalert2';
 import { Produit } from "./Model/produit.js";
+
+
+
 
 interface Client {
   idclient: string;
@@ -14,6 +18,102 @@ interface Client {
 }
 
 //--------------------Ajouter Produit--------------------------------------------
+// function ajouterProduit(cargaisonNum: string): void {
+//   const idproduit = "PRD" + Math.floor(Math.random() * 1000);
+
+//   let formData = new FormData();
+//   formData.append("action", "addProduit");
+//   formData.append("idproduit", idproduit);
+//   formData.append(
+//     "numero_produit",
+//     (document.getElementById("nom-produit") as HTMLInputElement)?.value.trim()
+//   );
+//   formData.append(
+//     "nom_produit",
+//     (document.getElementById("nom-produit") as HTMLInputElement).value.trim()
+//   );
+//   formData.append(
+//     "type_produit",
+//     (document.getElementById("type-produit") as HTMLSelectElement).value.trim()
+//   );
+//   formData.append(
+//     "etape_produit",
+//     (document.getElementById("etape-produit") as HTMLSelectElement).value.trim()
+//   );
+//   formData.append(
+//     "poids",
+//     (document.getElementById("poids-produit") as HTMLInputElement).value.trim()
+//   );
+  
+//   const toxiciteElement = document.getElementById("toxicite") as HTMLInputElement;
+//   if (toxiciteElement && (document.getElementById("type-produit") as HTMLSelectElement).value.trim() === 'chimique') {
+//     formData.append("toxicite", toxiciteElement.value.trim());
+//   }
+  
+//   formData.append("cargaisonNum", cargaisonNum);
+
+//   const emeteur: Client = {
+//     idclient: "CLT" + Math.floor(Math.random() * 1000),
+//     nom_client: (
+//       document.getElementById("nom-client") as HTMLInputElement
+//     ).value.trim(),
+//     prenom_client: (
+//       document.getElementById("prenom-client") as HTMLInputElement
+//     ).value.trim(),
+//     telephone_client: parseInt(
+//       (
+//         document.getElementById("telephone-client") as HTMLInputElement
+//       ).value.trim(),
+//       10
+//     ),
+//     email_client: (
+//       document.getElementById("email-client") as HTMLInputElement
+//     ).value.trim(),
+//   };
+
+//   formData.append("emeteur", JSON.stringify(emeteur));
+
+//   const destinataire: Client = {
+//     idclient: "DEST" + Math.floor(Math.random() * 1000),
+//     nom_client: (
+//       document.getElementById("nom-destinateur") as HTMLInputElement
+//     ).value.trim(),
+//     prenom_client: (
+//       document.getElementById("prenom-destinateur") as HTMLInputElement
+//     ).value.trim(),
+//     telephone_client: parseInt(
+//       (
+//         document.getElementById("telephone-destinateur") as HTMLInputElement
+//       ).value.trim(),
+//       10
+//     ),
+//     email_client: (
+//       document.getElementById("email-destinateur") as HTMLInputElement
+//     ).value.trim(),
+//   };
+
+//   formData.append("destinataire", JSON.stringify(destinataire));
+
+//   fetch("apiAjoutProduit.php", {
+//     method: "POST",
+//     body: formData,
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.status === "success") {
+//         alert(data.message);
+//         (
+//           document.getElementById("form-add-produit") as HTMLFormElement
+//         ).reset();
+//       } else {
+//         alert("Erreur lors de l'ajout du produit : " + data.message);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Erreur:", error);
+//       alert("Erreur lors de l'ajout du produit");
+//     });
+// }
 function ajouterProduit(cargaisonNum: string): void {
   const idproduit = "PRD" + Math.floor(Math.random() * 1000);
 
@@ -40,12 +140,12 @@ function ajouterProduit(cargaisonNum: string): void {
     "poids",
     (document.getElementById("poids-produit") as HTMLInputElement).value.trim()
   );
-  
+
   const toxiciteElement = document.getElementById("toxicite") as HTMLInputElement;
   if (toxiciteElement && (document.getElementById("type-produit") as HTMLSelectElement).value.trim() === 'chimique') {
     formData.append("toxicite", toxiciteElement.value.trim());
   }
-  
+
   formData.append("cargaisonNum", cargaisonNum);
 
   const emeteur: Client = {
@@ -97,19 +197,38 @@ function ajouterProduit(cargaisonNum: string): void {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        alert(data.message);
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: data.message,
+          timer: 3000,
+          showConfirmButton: false
+        });
         (
           document.getElementById("form-add-produit") as HTMLFormElement
         ).reset();
       } else {
-        alert("Erreur lors de l'ajout du produit : " + data.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: data.message,
+          timer: 3000,
+          showConfirmButton: false
+        });
       }
     })
     .catch((error) => {
       console.error("Erreur:", error);
-      alert("Erreur lors de l'ajout du produit");
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: "Erreur lors de l'ajout du produit",
+        timer: 3000,
+        showConfirmButton: false
+      });
     });
 }
+
 
 
 // Ajout de l'événement de soumission du formulaire de produit
@@ -143,10 +262,24 @@ function fermerCargaison(cargaisonId: string | null): void {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        alert(data.message);
+        // alert(data.message);
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: data.message,
+          timer: 3000,
+          showConfirmButton: false
+        });
         affichage(); // Rafraîchir le tableau après fermeture
       } else {
-        alert("Erreur lors de la fermeture de la cargaison : " + data.message);
+        // alert("Erreur lors de la fermeture de la cargaison : " + data.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: data.message,
+          timer: 3000,
+          showConfirmButton: false
+        });
       }
     })
     .catch((error) => {
@@ -175,18 +308,70 @@ function ouvrirCargaison(cargaisonId: string | null): void {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        alert(data.message);
+        //alert(data.message);
+        Swal.fire({
+          title: 'Success!',
+          text: data.message,
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
         affichage(); // Rafraîchir le tableau après fermeture
       } else {
-        alert("Erreur lors de l'ouverture de la cargaison : " + data.message);
+        // alert("Erreur lors de l'ouverture de la cargaison : " + data.message);
+        Swal.fire({
+          title: 'Erreur!',
+          text: "Erreur lors de l'ouverture de la cargaison : " + data.message,
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
       }
     })
     .catch((error) => {
       console.error("Erreur:", error);
-      alert("Erreur lors de l'ouverture de la cargaison");
+      // alert("Erreur lors de l'ouverture de la cargaison");
+      Swal.fire({
+        title: 'Erreur!',
+        text: "Erreur lors de l'ouverture de la cargaison",
+        icon: 'error',
+        timer: 3000,
+        showConfirmButton: false
+      });
     });
 }
 // Fonction changer etat_avancement d'une cargaison
+// function changerEtatAvancement(
+//   cargaisonId: string | null,
+//   newEtat: string
+// ): void {
+//   if (!cargaisonId) return;
+
+//   fetch("apiEtat.php", {
+//     method: "POST",
+//     body: JSON.stringify({
+//       action: "changerEtape",
+//       idCargaison: cargaisonId,
+//       nouvelleEtape: newEtat,
+//     }),
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (data.status === "success") {
+//         alert("État d'avancement mis à jour avec succès");
+//         affichage();
+//       } else {
+//         alert("Erreur lors de la mise à jour de l'état d'avancement");
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Erreur:", error);
+//       alert("Erreur lors de la mise à jour de l'état d'avancement");
+//     });
+// }
 function changerEtatAvancement(
   cargaisonId: string | null,
   newEtat: string
@@ -207,17 +392,36 @@ function changerEtatAvancement(
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        alert("État d'avancement mis à jour avec succès");
-        affichage();
+        Swal.fire({
+          title: 'Succès!',
+          text: "État d'avancement mis à jour avec succès",
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false
+        });
+        affichage(); // Rafraîchir le tableau après la mise à jour
       } else {
-        alert("Erreur lors de la mise à jour de l'état d'avancement");
+        Swal.fire({
+          title: 'Erreur!',
+          text: "Erreur lors de la mise à jour de l'état d'avancement",
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
       }
     })
     .catch((error) => {
       console.error("Erreur:", error);
-      alert("Erreur lors de la mise à jour de l'état d'avancement");
+      Swal.fire({
+        title: 'Erreur!',
+        text: "Erreur lors de la mise à jour de l'état d'avancement",
+        icon: 'error',
+        timer: 3000,
+        showConfirmButton: false
+      });
     });
 }
+
 
 function afficherDetailsCargaison(cargaisonId: string | null): void {
   if (!cargaisonId) {
@@ -316,13 +520,19 @@ function afficherDetailsCargaison(cargaisonId: string | null): void {
     .catch((error) => console.error("Error:", error));
 }
 
+
 function supprimerProduit(cargaisonId: string, produitId: string, etape: string): void {
   console.log(`Tentative de suppression du produit avec ID: ${produitId} et étape: ${etape}`);
   if (etape != "En attente") {
-    alert("Vous ne pouvez supprimer un produit que si son étape est 'En attente'");
+    Swal.fire({
+      title: 'Erreur!',
+      text: "Vous ne pouvez supprimer un produit que si son étape est 'En attente'",
+      icon: 'error',
+      timer: 3000,
+      showConfirmButton: false
+    });
     return;
-  }else
-  {
+  } else {
     fetch("supprimer_produit.php", {
       method: "POST",
       headers: {
@@ -335,18 +545,35 @@ function supprimerProduit(cargaisonId: string, produitId: string, etape: string)
         console.log('Réponse du serveur :', data);
         if (data.status === "success") {
           afficherDetailsCargaison(cargaisonId); // Rafraîchir la vue
-          alert(`Produit avec ID: ${produitId} a été supprimé avec succès`);
+          Swal.fire({
+            title: 'Succès!',
+            text: `Produit avec ID: ${produitId} a été supprimé avec succès`,
+            icon: 'success',
+            timer: 3000,
+            showConfirmButton: false
+          });
         } else {
-          alert("Erreur lors de la suppression du produit : " + data.message);
+          Swal.fire({
+            title: 'Erreur!',
+            text: data.message,
+            icon: 'error',
+            timer: 3000,
+            showConfirmButton: false
+          });
           console.error("Erreur lors de la suppression du produit : " + data.message);
         }
       })
       .catch((error) => {
         console.error("Erreur:", error);
-        alert("Erreur lors de la suppression du produit");
+        Swal.fire({
+          title: 'Erreur!',
+          text: "Erreur lors de la suppression du produit",
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
       });
   }
-
 }
 
 
@@ -493,7 +720,7 @@ function affichage(page: number = currentPage): void {
           }"><i class="fas fa-solid fa-lock"></i></button>
                 <button class="bg-blue-500 text-white px-1 py-1 rounded btn-ouvrir-cargo ${cargaison.etat_globale === "ouvert" ? "bg-green-500" : ""
           }" type="button" data-id="${cargaison.idcargo
-          }"><i class="fas fa-solid fa-lock"></i></button>
+          }"><i class="fas fa-solid fa-lock" title="ouvrir cargaison"></i></button>
             
 
 

@@ -28,11 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Vérifier si la cargaison est déjà fermée
-        // if ($data['cargaisons'][$cargaisonKey]['etat_globale'] === 'fermée') {
-        //     echo json_encode(['status' => 'error', 'message' => 'Cargaison déjà fermée']);
-        //     exit;
-        // }
+
 
 
         // Vérifier si la cargaison est en en cours pour ne pas l'ouvrir a nouveau

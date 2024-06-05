@@ -12,7 +12,7 @@
             "nom_cargaison": "Commodo fugiat est",
             "valeur_max": "53",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_route",
+            "etat_avancement": "arrivee",
             "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
@@ -75,7 +75,7 @@
             "valeur_max": "67",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "en_route",
-            "etat_globale": "ouvert",
+            "etat_globale": "ferm\u00e9e",
             "produits": []
         },
         {
@@ -106,7 +106,7 @@
             "nom_cargaison": "Eligendi tenetur qui",
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_attente",
+            "etat_avancement": "arrivee",
             "etat_globale": "ouvert",
             "produits": [
                 {
@@ -145,8 +145,8 @@
             "nom_cargaison": "Ipsa libero ea nobi",
             "valeur_max": "15",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en_attente",
-            "etat_globale": "ouvert",
+            "etat_avancement": "en_route",
+            "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
                     "idproduit": "PRD408",
