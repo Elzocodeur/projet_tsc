@@ -263,36 +263,6 @@ function ouvrirCargaison(cargaisonId) {
     });
 }
 // Fonction changer etat_avancement d'une cargaison
-// function changerEtatAvancement(
-//   cargaisonId: string | null,
-//   newEtat: string
-// ): void {
-//   if (!cargaisonId) return;
-//   fetch("apiEtat.php", {
-//     method: "POST",
-//     body: JSON.stringify({
-//       action: "changerEtape",
-//       idCargaison: cargaisonId,
-//       nouvelleEtape: newEtat,
-//     }),
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       if (data.status === "success") {
-//         alert("État d'avancement mis à jour avec succès");
-//         affichage();
-//       } else {
-//         alert("Erreur lors de la mise à jour de l'état d'avancement");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Erreur:", error);
-//       alert("Erreur lors de la mise à jour de l'état d'avancement");
-//     });
-// }
 function changerEtatAvancement(cargaisonId, newEtat) {
     if (!cargaisonId)
         return;
@@ -384,7 +354,7 @@ function afficherDetailsCargaison(cargaisonId) {
                 <td class="px-6 py-4 whitespace-nowrap">${produit.poids}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${produit.etape_produit}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <select class="etat-avancement-select bg-gradient-to-r from-blue-400 to-blue-600 text-white text-lg" data-id="${produit.idproduit}" onchange="changerEtapeProduit('${cargaison.idcargo}', '${produit.idproduit}', this.value)">
+                  <select class="etat-avancement-select-prod  bg-gradient-to-r from-blue-400 to-blue-600 text-white text-lg" data-id="${produit.idproduit}"  data-cargaison-id="${cargaison.idcargo}"  data-produit-etape="${produit.etape_produit}">
                     <option value="en_attente" ${produit.etape_produit === "en_attente" ? "selected" : ""}>En attente</option>
                     <option value="en_cours" ${produit.etape_produit === "en_cours" ? "selected" : ""}>En cours</option>
                     <option value="arrivee" ${produit.etape_produit === "arrivee" ? "selected" : ""}>Arrivée</option>
@@ -423,6 +393,17 @@ function afficherDetailsCargaison(cargaisonId) {
                     }
                 });
             });
+            // Ajouter un écouteur d'événements pour le bouton select pour changer etape produit
+            document.querySelectorAll(".etat-avancement-select-prod").forEach((select) => {
+                select.addEventListener("change", (event) => {
+                    const target = event.target;
+                    const cargaisonId = target.getAttribute('data-cargaison-id');
+                    console.log(cargaisonId);
+                    const produitId = target.getAttribute("data-produit-id");
+                    const newEtat = target.value;
+                    changerEtapeProduit(cargaisonId, produitId, newEtat);
+                });
+            });
         }
         else {
             console.error("Cargaison not found");
@@ -432,7 +413,7 @@ function afficherDetailsCargaison(cargaisonId) {
 }
 function supprimerProduit(cargaisonId, produitId, etape) {
     console.log(`Tentative de suppression du produit avec ID: ${produitId} et étape: ${etape}`);
-    if (etape != "En attente") {
+    if (etape != "en_attente") {
         Swal.fire({
             title: 'Erreur!',
             text: "Vous ne pouvez supprimer un produit que si son étape est 'En attente'",
@@ -486,8 +467,9 @@ function supprimerProduit(cargaisonId, produitId, etape) {
         });
     }
 }
+// Fonction changer etat_avancement d'un produit
 function changerEtapeProduit(cargaisonId, produitId, newEtape) {
-    fetch("supprimer_produit.php", {
+    fetch("apiEtapecoli.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

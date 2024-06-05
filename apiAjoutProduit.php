@@ -1,5 +1,11 @@
 <?php
 
+// Inclure l'autoloader de Composer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './vendor/autoload.php';
+
 header('Content-Type: application/json');
 
 // Fonction pour lire le fichier JSON
@@ -16,35 +22,41 @@ function writeJSON($filename, $data)
     file_put_contents($filename, $json_data);
 }
 
+// Fonction pour envoyer un email
+function envoyerEmail($destinataire, $sujet, $message)
+{
+    $mail = new PHPMailer(true);
+    try {
+        // Paramètres du serveur
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Spécifiez le serveur SMTP
+        $mail->SMTPAuth = true;
+        $mail->Username = 'gningeli03@gmail.com'; // Votre adresse email SMTP
+        $mail->Password = 'acgs gybv eixg jcvp'; // Votre mot de passe SMTP
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Destinataires
+        $mail->setFrom('gningeli03@gmail.com', 'GP-monde');
+        $mail->addAddress($destinataire);
+
+        // Contenu
+        $mail->isHTML(true);
+        $mail->Subject = $sujet;
+        $mail->Body    = $message;
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
 
-        if ($action === 'addCargaison') {
-            $newCargaison = [
-                "idcargo" => uniqid(),
-                "numero" => $_POST['numero'],
-                "lieu_depart" => $_POST['lieu_depart'],
-                "lieu_arrivee" => $_POST['lieu_arrivee'],
-                "distance_km" => $_POST['distance_km'],
-                "poids_suporter" => $_POST['poids_suporter'],
-                "date_depart" => $_POST['date_depart'],
-                "date_arrivee" => $_POST['date_arrivee'],
-                "nom_cargaison" => $_POST['nom_cargaison'],
-                "valeur_max" => $_POST['valeur_max'],
-                "type" => $_POST['type'],
-                "etat_avancement" => $_POST['etat_avancement'],
-                "etat_globale" => $_POST['etat_globale']
-                // "produit" => []
-            ];
-
-            $data = readJSON('cargaisons.json');
-            $data['cargaisons'][] = $newCargaison;
-            writeJSON('cargaisons.json', $data);
-
-            echo json_encode(['message' => 'Cargaison ajoutée avec succès']);
-            exit;
-        } elseif ($action === 'addProduit') {
+        if ($action === 'addProduit') {
             $produit = [
                 "idproduit" => $_POST['idproduit'],
                 "numero_produit" => $_POST['numero_produit'],
@@ -98,7 +110,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data['cargaisons'][$cargaisonKey]['produits'][] = $produit;
 
             writeJSON('cargaisons.json', $data);
-            echo json_encode(['status' => 'success', 'message' => 'Produit ajouté avec succès à la cargaison']);
+
+            // Envoyer les emails
+            $emailEmetteur = $produit['emeteur']['email_client'];
+            $emailDestinataire = $produit['destinataire']['email_client'];
+
+            $sujetEmetteur = 'Produit ajouté avec succès';
+            $messageEmetteur = 'Votre coli a été ajouté à la cargaison merci de votre confiance.';
+
+            $sujetDestinataire = 'Notification de Cargaison';
+            $messageDestinataire = 'Le colis de ' . $produit['emeteur']['nom_client'] . ' est ajouté dans la cargaison numéro ' . $cargaisonNum . 
+                '. Merci de se rendre à ' . $data['cargaisons'][$cargaisonKey]['lieu_arrivee'] . ' le ' . $data['cargaisons'][$cargaisonKey]['date_arrivee'] . '.';
+
+            $emailEnvoyeEmetteur = envoyerEmail($emailEmetteur, $sujetEmetteur, $messageEmetteur);
+            $emailEnvoyeDestinataire = envoyerEmail($emailDestinataire, $sujetDestinataire, $messageDestinataire);
+
+            if ($emailEnvoyeEmetteur && $emailEnvoyeDestinataire) {
+                echo json_encode(['status' => 'success', 'message' => 'Produit ajouté avec succès à la cargaison et emails envoyés']);
+            } else {
+                echo json_encode(['status' => 'success', 'message' => 'Produit ajouté avec succès à la cargaison mais échec de l\'envoi de l\'email']);
+            }
             exit;
         }
     }

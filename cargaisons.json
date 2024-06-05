@@ -13,14 +13,14 @@
             "valeur_max": "53",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "arrivee",
-            "etat_globale": "ferm\u00e9e",
+            "etat_globale": "ouvert",
             "produits": [
                 {
                     "idproduit": "PRD688",
                     "numero_produit": "",
                     "nom_produit": "",
                     "type_produit": "Alimentaire",
-                    "etape_produit": "En cours",
+                    "etape_produit": "arrivee",
                     "poids": "",
                     "emeteur": {
                         "idclient": "CLT296",
@@ -38,25 +38,25 @@
                     }
                 },
                 {
-                    "idproduit": "PRD730",
-                    "numero_produit": "Qui commodi in neces",
-                    "nom_produit": "Qui commodi in neces",
-                    "type_produit": "Alimentaire",
-                    "etape_produit": "R\u00e9cup\u00e9r\u00e9",
-                    "poids": "33",
+                    "idproduit": "PRD668",
+                    "numero_produit": "colis",
+                    "nom_produit": "colis",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "recuperer",
+                    "poids": "2",
                     "emeteur": {
-                        "idclient": "CLT376",
-                        "nom_client": "Eu incidunt vero ap",
-                        "prenom_client": "Velit molestiae eum",
-                        "telephone_client": 78,
-                        "email_client": "kexir@mailinator.com"
+                        "idclient": "CLT251",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
                     },
                     "destinataire": {
-                        "idclient": "DEST333",
-                        "nom_client": "Labore nostrum ducim",
-                        "prenom_client": "Corrupti cupiditate",
-                        "telephone_client": 41,
-                        "email_client": "cipes@mailinator.com"
+                        "idclient": "DEST396",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
                     }
                 }
             ],
@@ -74,7 +74,7 @@
             "nom_cargaison": "cargaison",
             "valeur_max": "67",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_route",
+            "etat_avancement": "en_attente",
             "etat_globale": "ferm\u00e9e",
             "produits": []
         },
@@ -91,7 +91,7 @@
             "valeur_max": "200",
             "type": "CargaisonMaritime",
             "etat_avancement": "en_attente",
-            "etat_globale": "ouvert",
+            "etat_globale": "ferm\u00e9e",
             "produits": []
         },
         {
@@ -107,7 +107,7 @@
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "arrivee",
-            "etat_globale": "ouvert",
+            "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
                     "idproduit": "PRD550",
@@ -145,8 +145,8 @@
             "nom_cargaison": "Ipsa libero ea nobi",
             "valeur_max": "15",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e",
+            "etat_avancement": "arrivee",
+            "etat_globale": "ouvert",
             "produits": [
                 {
                     "idproduit": "PRD408",
