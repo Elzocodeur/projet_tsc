@@ -1,0 +1,251 @@
+{
+    "cargaisons": [
+        {
+            "idcargo": "6655f40a66d48",
+            "numero": "CRG878",
+            "lieu_depart": "\u00c9tats-Unis d'Am\u00e9rique",
+            "lieu_arrivee": "\u00c9tats-Unis d'Am\u00e9rique",
+            "distance_km": "708.70",
+            "poids_suporter": "poids",
+            "date_depart": "1975-01-07",
+            "date_arrivee": "2020-07-15",
+            "nom_cargaison": "Commodo fugiat est",
+            "valeur_max": "53",
+            "type": "CargaisonA\u00e9rienne",
+            "etat_avancement": "en_route",
+            "etat_globale": "ferm\u00e9e",
+            "produits": [
+                {
+                    "idproduit": "PRD688",
+                    "numero_produit": "",
+                    "nom_produit": "",
+                    "type_produit": "Alimentaire",
+                    "etape_produit": "En cours",
+                    "poids": "",
+                    "emeteur": {
+                        "idclient": "CLT296",
+                        "nom_client": "",
+                        "prenom_client": "",
+                        "telephone_client": null,
+                        "email_client": ""
+                    },
+                    "destinataire": {
+                        "idclient": "DEST305",
+                        "nom_client": "",
+                        "prenom_client": "",
+                        "telephone_client": null,
+                        "email_client": ""
+                    }
+                },
+                {
+                    "idproduit": "PRD730",
+                    "numero_produit": "Qui commodi in neces",
+                    "nom_produit": "Qui commodi in neces",
+                    "type_produit": "Alimentaire",
+                    "etape_produit": "R\u00e9cup\u00e9r\u00e9",
+                    "poids": "33",
+                    "emeteur": {
+                        "idclient": "CLT376",
+                        "nom_client": "Eu incidunt vero ap",
+                        "prenom_client": "Velit molestiae eum",
+                        "telephone_client": 78,
+                        "email_client": "kexir@mailinator.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST333",
+                        "nom_client": "Labore nostrum ducim",
+                        "prenom_client": "Corrupti cupiditate",
+                        "telephone_client": 41,
+                        "email_client": "cipes@mailinator.com"
+                    }
+                }
+            ],
+            "etape": "en_route"
+        },
+        {
+            "idcargo": "6659cd0ca4d88",
+            "numero": "CRG394",
+            "lieu_depart": "Madagascar",
+            "lieu_arrivee": "Inde",
+            "distance_km": "6017.56",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-07-01",
+            "date_arrivee": "2024-07-12",
+            "nom_cargaison": "cargaison",
+            "valeur_max": "67",
+            "type": "CargaisonA\u00e9rienne",
+            "etat_avancement": "en_route",
+            "etat_globale": "ouvert",
+            "produits": []
+        },
+        {
+            "idcargo": "665b3246b37ca",
+            "numero": "CRG978",
+            "lieu_depart": "Afrique du Sud",
+            "lieu_arrivee": "Royaume-Uni",
+            "distance_km": "9935.18",
+            "poids_suporter": "poids",
+            "date_depart": "2024-07-02",
+            "date_arrivee": "2024-07-23",
+            "nom_cargaison": "cargaisons",
+            "valeur_max": "200",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "en_attente",
+            "etat_globale": "ouvert",
+            "produits": []
+        },
+        {
+            "idcargo": "665b32e06c725",
+            "numero": "CRG276",
+            "lieu_depart": "Zambie",
+            "lieu_arrivee": "Russie",
+            "distance_km": "7631.85",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-08-23",
+            "date_arrivee": "2024-09-12",
+            "nom_cargaison": "Eligendi tenetur qui",
+            "valeur_max": "6",
+            "type": "CargaisonA\u00e9rienne",
+            "etat_avancement": "en_attente",
+            "etat_globale": "ouvert",
+            "produits": [
+                {
+                    "idproduit": "PRD550",
+                    "numero_produit": "Facilis aute labore",
+                    "nom_produit": "Facilis aute labore",
+                    "type_produit": "Materiel",
+                    "etape_produit": "R\u00e9cup\u00e9r\u00e9",
+                    "poids": "34",
+                    "emeteur": {
+                        "idclient": "CLT718",
+                        "nom_client": "Beatae ipsa consect",
+                        "prenom_client": "Aperiam elit doloru",
+                        "telephone_client": 20,
+                        "email_client": "lesyg@mailinator.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST961",
+                        "nom_client": "Animi doloremque po",
+                        "prenom_client": "Doloremque exercitat",
+                        "telephone_client": 77,
+                        "email_client": "gojubusyb@mailinator.com"
+                    }
+                }
+            ]
+        },
+        {
+            "idcargo": "665b4995785cd",
+            "numero": "CRG709",
+            "lieu_depart": "Madagascar",
+            "lieu_arrivee": "Russie",
+            "distance_km": "10082.72",
+            "poids_suporter": "poids",
+            "date_depart": "2024-07-09",
+            "date_arrivee": "2024-07-24",
+            "nom_cargaison": "Ipsa libero ea nobi",
+            "valeur_max": "15",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "en_attente",
+            "etat_globale": "ouvert",
+            "produits": [
+                {
+                    "idproduit": "PRD408",
+                    "numero_produit": "Provident aspernatu",
+                    "nom_produit": "Provident aspernatu",
+                    "type_produit": "Materiel",
+                    "etape_produit": "R\u00e9cup\u00e9r\u00e9",
+                    "poids": "75",
+                    "emeteur": {
+                        "idclient": "CLT400",
+                        "nom_client": "Proident quae nostr",
+                        "prenom_client": "Est reprehenderit is",
+                        "telephone_client": 85,
+                        "email_client": "hokag@mailinator.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST480",
+                        "nom_client": "Sed praesentium ut q",
+                        "prenom_client": "Ut odit sunt et temp",
+                        "telephone_client": 34,
+                        "email_client": "huqeqan@mailinator.com"
+                    }
+                },
+                {
+                    "idproduit": "PRD509",
+                    "numero_produit": "Odit dolor ullamco q",
+                    "nom_produit": "Odit dolor ullamco q",
+                    "type_produit": "Routier",
+                    "etape_produit": "En cours",
+                    "poids": "100",
+                    "emeteur": {
+                        "idclient": "CLT824",
+                        "nom_client": "Magna Nam Nam quae v",
+                        "prenom_client": "Eius ex in et sed al",
+                        "telephone_client": 25,
+                        "email_client": "fonekigic@mailinator.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST364",
+                        "nom_client": "Quas dolore placeat",
+                        "prenom_client": "Veritatis totam volu",
+                        "telephone_client": 37,
+                        "email_client": "visejib@mailinator.com"
+                    }
+                }
+            ]
+        },
+        {
+            "idcargo": "665b523075b95",
+            "numero": "CRG958",
+            "lieu_depart": "Zambie",
+            "lieu_arrivee": "Inde",
+            "distance_km": "6308.31",
+            "poids_suporter": "poids",
+            "date_depart": "2024-07-12",
+            "date_arrivee": "2024-07-15",
+            "nom_cargaison": "cargaison",
+            "valeur_max": "200",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "en attente",
+            "etat_globale": "ouvert"
+        },
+        {
+            "idcargo": "665c73319b434",
+            "numero": "CRG664",
+            "lieu_depart": "Islande",
+            "lieu_arrivee": "Groenland",
+            "distance_km": "2074.51",
+            "poids_suporter": "poids",
+            "date_depart": "2024-07-24",
+            "date_arrivee": "2024-08-27",
+            "nom_cargaison": "Eos ipsam quisquam ",
+            "valeur_max": "57",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "en attente",
+            "etat_globale": "ouvert",
+            "produits": [
+                {
+                    "idproduit": "PRD562",
+                    "nom_produit": "Aute explicabo Ipsu",
+                    "type_produit": "Alimentaire",
+                    "etape_produit": "Perdu",
+                    "poids": 86,
+                    "emeteur": {
+                        "idclient": "CLT462",
+                        "nom_client": "Proident quo adipis",
+                        "prenom_client": "Rerum eos enim numq",
+                        "telephone_client": 64,
+                        "email_client": "wiwejof@mailinator.com"
+                    },
+                    "destinataire": {
+                        "idclient": "CLT533",
+                        "nom_client": "Eaque assumenda proi",
+                        "prenom_client": "Officia aut obcaecat",
+                        "telephone_client": 11,
+                        "email_client": "wusijiwus@mailinator.com"
+                    }
+                }
+            ]
+        }
+    ]
+}
