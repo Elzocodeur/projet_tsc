@@ -12,15 +12,15 @@
             "nom_cargaison": "Commodo fugiat est",
             "valeur_max": "53",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "arrivee",
-            "etat_globale": "ouvert",
+            "etat_avancement": "en_attente",
+            "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
                     "idproduit": "PRD688",
                     "numero_produit": "",
                     "nom_produit": "",
                     "type_produit": "Alimentaire",
-                    "etape_produit": "arrivee",
+                    "etape_produit": "recuperer",
                     "poids": "",
                     "emeteur": {
                         "idclient": "CLT296",
@@ -42,7 +42,7 @@
                     "numero_produit": "colis",
                     "nom_produit": "colis",
                     "type_produit": "alimentaire",
-                    "etape_produit": "recuperer",
+                    "etape_produit": "perdu",
                     "poids": "2",
                     "emeteur": {
                         "idclient": "CLT251",

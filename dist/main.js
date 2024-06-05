@@ -354,7 +354,7 @@ function afficherDetailsCargaison(cargaisonId) {
                 <td class="px-6 py-4 whitespace-nowrap">${produit.poids}</td>
                 <td class="px-6 py-4 whitespace-nowrap">${produit.etape_produit}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <select class="etat-avancement-select-prod  bg-gradient-to-r from-blue-400 to-blue-600 text-white text-lg" data-id="${produit.idproduit}"  data-cargaison-id="${cargaison.idcargo}"  data-produit-etape="${produit.etape_produit}">
+                  <select class="etat-avancement-select-prod  bg-gradient-to-r from-blue-400 to-blue-600 text-white text-lg" data-id="${produit.idproduit}"  data-cargaison-id="${cargaison.idcargo}" data-produit-id="${produit.idproduit}"  data-produit-etape="${produit.etape_produit}">
                     <option value="en_attente" ${produit.etape_produit === "en_attente" ? "selected" : ""}>En attente</option>
                     <option value="en_cours" ${produit.etape_produit === "en_cours" ? "selected" : ""}>En cours</option>
                     <option value="arrivee" ${produit.etape_produit === "arrivee" ? "selected" : ""}>Arrivée</option>
@@ -362,6 +362,7 @@ function afficherDetailsCargaison(cargaisonId) {
                     <option value="perdu" ${produit.etape_produit === "perdu" ? "selected" : ""}>Perdu</option>
                     <option value="archive" ${produit.etape_produit === "archive" ? "selected" : ""}>Archive</option>
                     <option value="annuler" ${produit.etape_produit === "annuler" ? "selected" : ""}>Annuler</option>
+                    <option value="annuler" ${produit.etape_produit === "nom" ? "selected" : ""}>Annuler</option>
                   </select>
                   <button class="text-red-600 hover:text-red-900 ml-2 deleteProduit" data-cargaison-id="${cargaison.idcargo}" data-produit-id="${produit.idproduit}" data-produit-etape="${produit.etape_produit}">
                     <i class="fas fa-trash"></i>
@@ -398,8 +399,8 @@ function afficherDetailsCargaison(cargaisonId) {
                 select.addEventListener("change", (event) => {
                     const target = event.target;
                     const cargaisonId = target.getAttribute('data-cargaison-id');
-                    console.log(cargaisonId);
                     const produitId = target.getAttribute("data-produit-id");
+                    console.log(produitId);
                     const newEtat = target.value;
                     changerEtapeProduit(cargaisonId, produitId, newEtat);
                 });
@@ -484,10 +485,24 @@ function changerEtapeProduit(cargaisonId, produitId, newEtape) {
         .then((response) => response.json())
         .then((data) => {
         if (data.status === "success") {
+            Swal.fire({
+                title: 'Succès!',
+                text: "État d'avancement mis à jour avec succès",
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false
+            });
             afficherDetailsCargaison(cargaisonId); // Rafraîchir la vue
         }
         else {
-            alert("Erreur lors de la mise à jour de l'étape : " + data.message);
+            // alert("Erreur lors de la mise à jour de l'étape : " + data.message);
+            Swal.fire({
+                title: 'Erreur!',
+                text: data.message,
+                icon: 'error',
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
     })
         .catch((error) => {
