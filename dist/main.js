@@ -1,5 +1,178 @@
 // import { Console } from 'console';
 // import { Cargaison } from './Model/cargaison.js';
+// import { Cargaison } from "./Model/cargaison";
+// import Swal from 'sweetalert2';
+import { Cargaison } from "./Model/cargaison.js";
+// Fonction pour ouvrir le modal et passer l'ID de la cargaison
+function ouvrirModalProd(cargaisonNum) {
+    console.log("Ajouter dans la cargaison:", cargaisonNum);
+    const modal = document.getElementById("modal-produit");
+    if (modal) {
+        modal.classList.remove("hidden");
+        document.getElementById("idcargo").value =
+            cargaisonNum || "";
+    }
+}
+let currentPage = 1;
+const itemsPerPage = 5;
+let totalPages = 1;
+function affichage(page = currentPage) {
+    fetch("cargaisons.json")
+        .then((response) => response.json())
+        .then((data) => {
+        const cargaisons = data.cargaisons;
+        const cargaisonList = document.getElementById("cargaison-list");
+        if (!cargaisonList)
+            return;
+        // Récupérer les valeurs de recherche
+        const searchNumero = document.getElementById("search-numero").value.toLowerCase();
+        const searchDateDepart = document.getElementById("search-date-depart").value;
+        const searchDateArrivee = document.getElementById("search-date-arrivee").value;
+        const searchLieuDepart = document.getElementById("search-lieu-depart").value.toLowerCase();
+        const searchLieuArrivee = document.getElementById("search-lieu-arrivee").value.toLowerCase();
+        const typeCargaison = document.getElementById("type-filtre").value;
+        // Filtrer les cargaisons en fonction des valeurs de recherche
+        const cargaisonsFiltrees = cargaisons.filter((cargaison) => (searchNumero === "" ||
+            cargaison.numero.toLowerCase().includes(searchNumero)) &&
+            (searchDateDepart === "" ||
+                cargaison.date_depart.includes(searchDateDepart)) &&
+            (searchDateArrivee === "" ||
+                cargaison.date_arrivee.includes(searchDateArrivee)) &&
+            (searchLieuDepart === "" ||
+                cargaison.lieu_depart.toLowerCase().includes(searchLieuDepart)) &&
+            (searchLieuArrivee === "" ||
+                cargaison.lieu_arrivee.toLowerCase().includes(searchLieuArrivee)) &&
+            (typeCargaison === "" || cargaison.type === typeCargaison));
+        totalPages = Math.ceil(cargaisonsFiltrees.length / itemsPerPage);
+        currentPage = page;
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedCargaisons = cargaisonsFiltrees.slice(start, end);
+        cargaisonList.innerHTML = "";
+        paginatedCargaisons.forEach((cargaison) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.numero}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.type}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_depart}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_arrivee}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.lieu_depart}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.lieu_arrivee}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.etat_globale}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.etat_avancement}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-view" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-eye"></i></button>
+                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-add-prod" type="button" data-id="${cargaison.numero}"><i class=" fas fa-solid fa-plus"></i></button>
+                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-fermer-cargo ${cargaison.etat_globale === "fermée" ? "bg-red-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock"></i></button>
+                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-ouvrir-cargo ${cargaison.etat_globale === "ouvert" ? "bg-green-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock" title="ouvrir cargaison"></i></button>
+            
+
+
+        <select class="etat-avancement-select bg-gradient-to-b from-blue-500 to-blue-800 text-white text-lg p-2 rounded" data-id="${cargaison.idcargo}">
+    <option value="en_attente" ${cargaison.etat_avancement === "en_attente" ? "selected" : ""}>En attente</option>
+    <option value="en_route" ${cargaison.etat_avancement === "en_route" ? "selected" : ""}>En route</option>
+    <option value="arrivee" ${cargaison.etat_avancement === "arrivee" ? "selected" : ""}>Arrivée</option>
+          <option value="perdu" ${cargaison.etat_avancement === "perdu" ? "selected" : ""}>perdu</option>
+</select>
+
+
+            </td>
+          `;
+            cargaisonList.appendChild(row);
+        });
+        // Mise à jour des événements des boutons "add"
+        document.querySelectorAll(".btn-add-prod").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                console.log(button);
+                const target = event.target.closest(".btn-add-prod");
+                if (target) {
+                    const cargaisonNum = target.getAttribute("data-id");
+                    ouvrirModalProd(cargaisonNum);
+                }
+            });
+        });
+        // Mise à jour des événements des boutons "voir"
+        document.querySelectorAll(".btn-view").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const target = event.target.closest(".btn-view");
+                if (target) {
+                    const cargaisonId = target.getAttribute("data-id");
+                    afficherDetailsCargaison(cargaisonId);
+                }
+            });
+        });
+        document.querySelectorAll(".btn-fermer-cargo").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const target = event.target.closest(".btn-fermer-cargo");
+                if (target) {
+                    const cargaisonId = target.getAttribute("data-id");
+                    console.log(cargaisonId);
+                    fermerCargaison(cargaisonId);
+                }
+            });
+        });
+        document.querySelectorAll(".btn-ouvrir-cargo").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const target = event.target.closest(".btn-ouvrir-cargo");
+                if (target) {
+                    const cargaisonId = target.getAttribute("data-id");
+                    console.log(cargaisonId);
+                    ouvrirCargaison(cargaisonId);
+                }
+            });
+        });
+        document.querySelectorAll(".etat-avancement-select").forEach((select) => {
+            select.addEventListener("change", (event) => {
+                const target = event.target;
+                const cargaisonId = target.getAttribute("data-id");
+                const newEtat = target.value;
+                changerEtatAvancement(cargaisonId, newEtat);
+            });
+        });
+        // Mise à jour des informations de pagination
+        // const pageInfo = document.getElementById("page-info");
+        // if (pageInfo) {
+        //     pageInfo.textContent = `${currentPage} / ${totalPages}`;
+        // }
+        // Mise à jour des informations de pagination
+        const pageInfo = document.getElementById("page-info");
+        if (pageInfo) {
+            pageInfo.textContent = `Page ${currentPage} sur ${totalPages}`;
+        }
+        // Activer/désactiver les boutons de pagination
+        const prevButton = document.getElementById("prev-page");
+        const nextButton = document.getElementById("next-page");
+        if (prevButton) {
+            prevButton.disabled = currentPage === 1;
+        }
+        if (nextButton) {
+            nextButton.disabled = currentPage === totalPages;
+        }
+    });
+}
+document.getElementById("prev-page")?.addEventListener("click", () => {
+    if (currentPage > 1) {
+        affichage(currentPage - 1);
+    }
+});
+document.getElementById("next-page")?.addEventListener("click", () => {
+    if (currentPage < totalPages) {
+        affichage(currentPage + 1);
+    }
+});
+// Ajout d'un événement pour la recherche
+document
+    .querySelectorAll("#search-numero, #search-date-depart, #search-date-arrivee, #search-lieu-depart, #search-lieu-arrivee, btn-recherche")
+    .forEach((element) => {
+    element.addEventListener("input", () => {
+        affichage(1);
+    });
+});
+document.querySelector("#type-filtre")?.addEventListener("change", () => {
+    affichage(1);
+});
+// Appel initial pour afficher les cargaisons existantes
+affichage();
 //--------------------Ajouter Produit--------------------------------------------
 // function ajouterProduit(cargaisonNum: string): void {
 //   const idproduit = "PRD" + Math.floor(Math.random() * 1000);
@@ -89,6 +262,31 @@
 //       alert("Erreur lors de l'ajout du produit");
 //     });
 // }
+const envoieSMS = (numero, message) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "App 633b92473c572a1487a29b7678a73113-ede9fb24-c77d-4d99-90ed-290b0d53a501");
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Accept", "application/json");
+    const raw = JSON.stringify({
+        "messages": [
+            {
+                "destinations": [{ "to": numero }],
+                "from": "ServiceSMS",
+                "text": message
+            }
+        ]
+    });
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+    fetch("https://8gjzdr.api.infobip.com/sms/2/text/advanced", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+};
 function ajouterProduit(cargaisonNum) {
     const idproduit = "PRD" + Math.floor(Math.random() * 1000);
     let formData = new FormData();
@@ -127,6 +325,13 @@ function ajouterProduit(cargaisonNum) {
         .then((response) => response.json())
         .then((data) => {
         if (data.status === "success") {
+            // Envoie SMS à l'emetteur et au destinataire
+            const emetteurNumero = `+221${emeteur.telephone_client}`;
+            const destinataireNumero = `+221${destinataire.telephone_client}`;
+            const messageEmetteur = `Votre colis a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de votre confiance.`;
+            const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${Cargaison.lieu_arrivee}  le ${data.date_arrivee}.`;
+            envoieSMS(emetteurNumero, messageEmetteur);
+            envoieSMS(destinataireNumero, messageDestinataire);
             Swal.fire({
                 icon: 'success',
                 title: 'Succès',
@@ -362,7 +567,7 @@ function afficherDetailsCargaison(cargaisonId) {
                     <option value="perdu" ${produit.etape_produit === "perdu" ? "selected" : ""}>Perdu</option>
                     <option value="archive" ${produit.etape_produit === "archive" ? "selected" : ""}>Archive</option>
                     <option value="annuler" ${produit.etape_produit === "annuler" ? "selected" : ""}>Annuler</option>
-                    <option value="annuler" ${produit.etape_produit === "nom" ? "selected" : ""}>Annuler</option>
+                    <option value="non-recuperer" ${produit.etape_produit === "non-recuperer" ? "selected" : ""}>non-recuperer</option>
                   </select>
                   <button class="text-red-600 hover:text-red-900 ml-2 deleteProduit" data-cargaison-id="${cargaison.idcargo}" data-produit-id="${produit.idproduit}" data-produit-etape="${produit.etape_produit}">
                     <i class="fas fa-trash"></i>
@@ -511,176 +716,7 @@ function changerEtapeProduit(cargaisonId, produitId, newEtape) {
     });
 }
 // ---------------------------------------fin---------------------------------------
-// Fonction pour ouvrir le modal et passer l'ID de la cargaison
-function ouvrirModalProd(cargaisonNum) {
-    console.log("Ajouter dans la cargaison:", cargaisonNum);
-    const modal = document.getElementById("modal-produit");
-    if (modal) {
-        modal.classList.remove("hidden");
-        document.getElementById("idcargo").value =
-            cargaisonNum || "";
-    }
-}
-let currentPage = 1;
-const itemsPerPage = 5;
-let totalPages = 1;
-function affichage(page = currentPage) {
-    fetch("cargaisons.json")
-        .then((response) => response.json())
-        .then((data) => {
-        const cargaisons = data.cargaisons;
-        const cargaisonList = document.getElementById("cargaison-list");
-        if (!cargaisonList)
-            return;
-        // Récupérer les valeurs de recherche
-        const searchNumero = document.getElementById("search-numero").value.toLowerCase();
-        const searchDateDepart = document.getElementById("search-date-depart").value;
-        const searchDateArrivee = document.getElementById("search-date-arrivee").value;
-        const searchLieuDepart = document.getElementById("search-lieu-depart").value.toLowerCase();
-        const searchLieuArrivee = document.getElementById("search-lieu-arrivee").value.toLowerCase();
-        const typeCargaison = document.getElementById("type-filtre").value;
-        // Filtrer les cargaisons en fonction des valeurs de recherche
-        const cargaisonsFiltrees = cargaisons.filter((cargaison) => (searchNumero === "" ||
-            cargaison.numero.toLowerCase().includes(searchNumero)) &&
-            (searchDateDepart === "" ||
-                cargaison.date_depart.includes(searchDateDepart)) &&
-            (searchDateArrivee === "" ||
-                cargaison.date_arrivee.includes(searchDateArrivee)) &&
-            (searchLieuDepart === "" ||
-                cargaison.lieu_depart.toLowerCase().includes(searchLieuDepart)) &&
-            (searchLieuArrivee === "" ||
-                cargaison.lieu_arrivee.toLowerCase().includes(searchLieuArrivee)) &&
-            (typeCargaison === "" || cargaison.type === typeCargaison));
-        totalPages = Math.ceil(cargaisonsFiltrees.length / itemsPerPage);
-        currentPage = page;
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const paginatedCargaisons = cargaisonsFiltrees.slice(start, end);
-        cargaisonList.innerHTML = "";
-        paginatedCargaisons.forEach((cargaison) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.numero}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.type}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_depart}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_arrivee}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.lieu_depart}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.lieu_arrivee}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.etat_globale}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.etat_avancement}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-view" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-eye"></i></button>
-                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-add-prod" type="button" data-id="${cargaison.numero}"><i class=" fas fa-solid fa-plus"></i></button>
-                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-fermer-cargo ${cargaison.etat_globale === "fermée" ? "bg-red-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock"></i></button>
-                <button class="bg-blue-500 text-white px-1 py-1 rounded btn-ouvrir-cargo ${cargaison.etat_globale === "ouvert" ? "bg-green-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock" title="ouvrir cargaison"></i></button>
-            
-
-
-        <select class="etat-avancement-select bg-gradient-to-b from-blue-500 to-blue-800 text-white text-lg p-2 rounded" data-id="${cargaison.idcargo}">
-    <option value="en_attente" ${cargaison.etat_avancement === "en_attente" ? "selected" : ""}>En attente</option>
-    <option value="en_route" ${cargaison.etat_avancement === "en_route" ? "selected" : ""}>En route</option>
-    <option value="arrivee" ${cargaison.etat_avancement === "arrivee" ? "selected" : ""}>Arrivée</option>
-</select>
-
-
-            </td>
-          `;
-            cargaisonList.appendChild(row);
-        });
-        // Mise à jour des événements des boutons "add"
-        document.querySelectorAll(".btn-add-prod").forEach((button) => {
-            button.addEventListener("click", (event) => {
-                console.log(button);
-                const target = event.target.closest(".btn-add-prod");
-                if (target) {
-                    const cargaisonNum = target.getAttribute("data-id");
-                    ouvrirModalProd(cargaisonNum);
-                }
-            });
-        });
-        // Mise à jour des événements des boutons "voir"
-        document.querySelectorAll(".btn-view").forEach((button) => {
-            button.addEventListener("click", (event) => {
-                const target = event.target.closest(".btn-view");
-                if (target) {
-                    const cargaisonId = target.getAttribute("data-id");
-                    afficherDetailsCargaison(cargaisonId);
-                }
-            });
-        });
-        document.querySelectorAll(".btn-fermer-cargo").forEach((button) => {
-            button.addEventListener("click", (event) => {
-                const target = event.target.closest(".btn-fermer-cargo");
-                if (target) {
-                    const cargaisonId = target.getAttribute("data-id");
-                    console.log(cargaisonId);
-                    fermerCargaison(cargaisonId);
-                }
-            });
-        });
-        document.querySelectorAll(".btn-ouvrir-cargo").forEach((button) => {
-            button.addEventListener("click", (event) => {
-                const target = event.target.closest(".btn-ouvrir-cargo");
-                if (target) {
-                    const cargaisonId = target.getAttribute("data-id");
-                    console.log(cargaisonId);
-                    ouvrirCargaison(cargaisonId);
-                }
-            });
-        });
-        document.querySelectorAll(".etat-avancement-select").forEach((select) => {
-            select.addEventListener("change", (event) => {
-                const target = event.target;
-                const cargaisonId = target.getAttribute("data-id");
-                const newEtat = target.value;
-                changerEtatAvancement(cargaisonId, newEtat);
-            });
-        });
-        // Mise à jour des informations de pagination
-        // const pageInfo = document.getElementById("page-info");
-        // if (pageInfo) {
-        //     pageInfo.textContent = `${currentPage} / ${totalPages}`;
-        // }
-        // Mise à jour des informations de pagination
-        const pageInfo = document.getElementById("page-info");
-        if (pageInfo) {
-            pageInfo.textContent = `Page ${currentPage} sur ${totalPages}`;
-        }
-        // Activer/désactiver les boutons de pagination
-        const prevButton = document.getElementById("prev-page");
-        const nextButton = document.getElementById("next-page");
-        if (prevButton) {
-            prevButton.disabled = currentPage === 1;
-        }
-        if (nextButton) {
-            nextButton.disabled = currentPage === totalPages;
-        }
-    });
-}
-document.getElementById("prev-page")?.addEventListener("click", () => {
-    if (currentPage > 1) {
-        affichage(currentPage - 1);
-    }
-});
-document.getElementById("next-page")?.addEventListener("click", () => {
-    if (currentPage < totalPages) {
-        affichage(currentPage + 1);
-    }
-});
-// Ajout d'un événement pour la recherche
-document
-    .querySelectorAll("#search-numero, #search-date-depart, #search-date-arrivee, #search-lieu-depart, #search-lieu-arrivee, btn-recherche")
-    .forEach((element) => {
-    element.addEventListener("input", () => {
-        affichage(1);
-    });
-});
-document.querySelector("#type-filtre")?.addEventListener("change", () => {
-    affichage(1);
-});
-// Appel initial pour afficher les cargaisons existantes
-affichage();
-// ajouter cargaison
+// -------------------------------ajouter cargaison-------------------------------------------------
 document
     .getElementById("form-add-cargaison")
     ?.addEventListener("submit", (event) => {
@@ -895,4 +931,3 @@ document.getElementById("close-modal-detail")?.addEventListener("click", () => {
     if (modal)
         modal.classList.add("hidden");
 });
-export {};

@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'addProduit') {
             $produit = [
                 "idproduit" => $_POST['idproduit'],
-                "numero_produit" => $_POST['numero_produit'],
+                "numero_produit" => $_POST['numero_produit'], 
                 "nom_produit" => $_POST['nom_produit'],
                 "type_produit" => $_POST['type_produit'],
                 "etape_produit" => $_POST['etape_produit'],
