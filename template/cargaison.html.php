@@ -40,8 +40,8 @@ $cargaisons = $data['cargaisons'];
                         <th>Lieu de Départ</th>
                         <th>Lieu d'Arrivée</th>
                         <th>Etat_globale</th>
-                        <th>Etape</th>
-                        <th class="pl-4 text-xl">Action</th>
+                        <th>Etat avancement</th>
+                        <th class="pl-9 text-xl ">Action</th>
                     </tr>
                 </thead>
                 <tbody id="cargaison-list">

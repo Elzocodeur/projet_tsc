@@ -12,8 +12,8 @@
             "nom_cargaison": "Commodo fugiat est",
             "valeur_max": "53",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e",
+            "etat_avancement": "perdu",
+            "etat_globale": "ouvert",
             "produits": [
                 {
                     "idproduit": "PRD688",
@@ -316,7 +316,7 @@
             "nom_cargaison": "cargaison",
             "valeur_max": "67",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "arrivee",
+            "etat_avancement": "en_attente",
             "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
@@ -421,7 +421,7 @@
             "nom_cargaison": "cargaisons",
             "valeur_max": "200",
             "type": "CargaisonMaritime",
-            "etat_avancement": "perdu",
+            "etat_avancement": "en_route",
             "etat_globale": "ferm\u00e9e",
             "produits": [
                 {
@@ -461,7 +461,7 @@
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "en_attente",
-            "etat_globale": "ferm\u00e9e",
+            "etat_globale": "fermee",
             "produits": [
                 {
                     "idproduit": "PRD550",
@@ -499,8 +499,8 @@
             "nom_cargaison": "Ipsa libero ea nobi",
             "valeur_max": "15",
             "type": "CargaisonMaritime",
-            "etat_avancement": "arrivee",
-            "etat_globale": "ferm\u00e9e",
+            "etat_avancement": "en_attente",
+            "etat_globale": "fermee",
             "produits": [
                 {
                     "idproduit": "PRD408",
@@ -560,8 +560,8 @@
             "nom_cargaison": "cargaison",
             "valeur_max": "200",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en attente",
-            "etat_globale": "ouvert"
+            "etat_avancement": "en_route",
+            "etat_globale": "ferm\u00e9e"
         },
         {
             "idcargo": "665c73319b434",
@@ -575,8 +575,8 @@
             "nom_cargaison": "Eos ipsam quisquam ",
             "valeur_max": "57",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en attente",
-            "etat_globale": "ouvert",
+            "etat_avancement": "arrivee",
+            "etat_globale": "fermee",
             "produits": [
                 {
                     "idproduit": "PRD562",

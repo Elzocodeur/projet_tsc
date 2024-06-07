@@ -1,8 +1,5 @@
 // import { Console } from 'console';
 // import { Cargaison } from './Model/cargaison.js';
-// import { Cargaison } from "./Model/cargaison";
-// import Swal from 'sweetalert2';
-import { Cargaison } from "./Model/cargaison.js";
 // Fonction pour ouvrir le modal et passer l'ID de la cargaison
 function ouvrirModalProd(cargaisonNum) {
     console.log("Ajouter dans la cargaison:", cargaisonNum);
@@ -52,7 +49,7 @@ function affichage(page = currentPage) {
         paginatedCargaisons.forEach((cargaison) => {
             const row = document.createElement("tr");
             row.innerHTML = `
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.numero}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.numero}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.type}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_depart}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${cargaison.date_arrivee}</td>
@@ -65,15 +62,46 @@ function affichage(page = currentPage) {
                 <button class="bg-blue-500 text-white px-1 py-1 rounded btn-add-prod" type="button" data-id="${cargaison.numero}"><i class=" fas fa-solid fa-plus"></i></button>
                 <button class="bg-blue-500 text-white px-1 py-1 rounded btn-fermer-cargo ${cargaison.etat_globale === "fermée" ? "bg-red-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock"></i></button>
                 <button class="bg-blue-500 text-white px-1 py-1 rounded btn-ouvrir-cargo ${cargaison.etat_globale === "ouvert" ? "bg-green-500" : ""}" type="button" data-id="${cargaison.idcargo}"><i class="fas fa-solid fa-lock" title="ouvrir cargaison"></i></button>
-            
+
+     
+
+          <select class="etat-avancement-select bg-gradient-to-b from-blue-500 to-blue-800 text-white text-lg p-2 rounded" data-id="${cargaison.idcargo}">
+                    
+                    ${cargaison.etat_globale === "fermée" &&
+                cargaison.etat_avancement === "en_route"
+                ? `
+                    <option value="en_route">En route</option>
+                    <option value="perdu">Perdu</option>
+                    <option value="arrivee">Arrivée</option>
+                  `
+                : ""}
+                  ${cargaison.etat_globale === "ouvert" &&
+                cargaison.etat_avancement === "en_attente"
+                ? `
+                    <option value="en_attente">En attente</option>
+                    <option value="en_route">En route</option>
+                  `
+                : ""}
+
+                  ${cargaison.etat_globale === "fermee" &&
+                cargaison.etat_avancement === "en_attente"
+                ? `
+                  <option value="en_attente">En attente</option>
+                  <option value="en_route">En route</option>
+                    `
+                : ""}
 
 
-        <select class="etat-avancement-select bg-gradient-to-b from-blue-500 to-blue-800 text-white text-lg p-2 rounded" data-id="${cargaison.idcargo}">
-    <option value="en_attente" ${cargaison.etat_avancement === "en_attente" ? "selected" : ""}>En attente</option>
-    <option value="en_route" ${cargaison.etat_avancement === "en_route" ? "selected" : ""}>En route</option>
-    <option value="arrivee" ${cargaison.etat_avancement === "arrivee" ? "selected" : ""}>Arrivée</option>
-          <option value="perdu" ${cargaison.etat_avancement === "perdu" ? "selected" : ""}>perdu</option>
-</select>
+                    ${cargaison.etat_avancement !== "perdu" &&
+                cargaison.etat_avancement !== "arrivee" &&
+                cargaison.etat_avancement !== "en_route" &&
+                cargaison.etat_globale !== "fermee"
+                ? `
+                    <option value="en_attente">En attente</option>
+                  `
+                : ""}
+        </select>
+
 
 
             </td>
@@ -268,19 +296,19 @@ const envoieSMS = (numero, message) => {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Accept", "application/json");
     const raw = JSON.stringify({
-        "messages": [
+        messages: [
             {
-                "destinations": [{ "to": numero }],
-                "from": "ServiceSMS",
-                "text": message
-            }
-        ]
+                destinations: [{ to: numero }],
+                from: "ServiceSMS",
+                text: message,
+            },
+        ],
     });
     const requestOptions = {
         method: "POST",
         headers: myHeaders,
         body: raw,
-        redirect: "follow"
+        redirect: "follow",
     };
     fetch("https://8gjzdr.api.infobip.com/sms/2/text/advanced", requestOptions)
         .then((response) => response.text())
@@ -298,7 +326,8 @@ function ajouterProduit(cargaisonNum) {
     formData.append("etape_produit", document.getElementById("etape-produit").value.trim());
     formData.append("poids", document.getElementById("poids-produit").value.trim());
     const toxiciteElement = document.getElementById("toxicite");
-    if (toxiciteElement && document.getElementById("type-produit").value.trim() === 'chimique') {
+    if (toxiciteElement &&
+        document.getElementById("type-produit").value.trim() === "chimique") {
         formData.append("toxicite", toxiciteElement.value.trim());
     }
     formData.append("cargaisonNum", cargaisonNum);
@@ -333,32 +362,32 @@ function ajouterProduit(cargaisonNum) {
             envoieSMS(emetteurNumero, messageEmetteur);
             envoieSMS(destinataireNumero, messageDestinataire);
             Swal.fire({
-                icon: 'success',
-                title: 'Succès',
+                icon: "success",
+                title: "Succès",
                 text: data.message,
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
             document.getElementById("form-add-produit").reset();
         }
         else {
             Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
+                icon: "error",
+                title: "Erreur",
                 text: data.message,
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         }
     })
         .catch((error) => {
         console.error("Erreur:", error);
         Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
+            icon: "error",
+            title: "Erreur",
             text: "Erreur lors de l'ajout du produit",
             timer: 3000,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
     });
 }
@@ -391,22 +420,22 @@ function fermerCargaison(cargaisonId) {
         if (data.status === "success") {
             // alert(data.message);
             Swal.fire({
-                icon: 'success',
-                title: 'Succès',
+                icon: "success",
+                title: "Succès",
                 text: data.message,
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
             affichage(); // Rafraîchir le tableau après fermeture
         }
         else {
             // alert("Erreur lors de la fermeture de la cargaison : " + data.message);
             Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
+                icon: "error",
+                title: "Erreur",
                 text: data.message,
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         }
     })
@@ -436,22 +465,22 @@ function ouvrirCargaison(cargaisonId) {
         if (data.status === "success") {
             //alert(data.message);
             Swal.fire({
-                title: 'Success!',
+                title: "Success!",
                 text: data.message,
-                icon: 'success',
+                icon: "success",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
             affichage(); // Rafraîchir le tableau après fermeture
         }
         else {
             // alert("Erreur lors de l'ouverture de la cargaison : " + data.message);
             Swal.fire({
-                title: 'Erreur!',
-                text: "Erreur lors de l'ouverture de la cargaison : " + data.message,
-                icon: 'error',
+                title: "Erreur!",
+                text: data.message,
+                icon: "error",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         }
     })
@@ -459,11 +488,11 @@ function ouvrirCargaison(cargaisonId) {
         console.error("Erreur:", error);
         // alert("Erreur lors de l'ouverture de la cargaison");
         Swal.fire({
-            title: 'Erreur!',
+            title: "Erreur!",
             text: "Erreur lors de l'ouverture de la cargaison",
-            icon: 'error',
+            icon: "error",
             timer: 3000,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
     });
 }
@@ -486,32 +515,32 @@ function changerEtatAvancement(cargaisonId, newEtat) {
         .then((data) => {
         if (data.status === "success") {
             Swal.fire({
-                title: 'Succès!',
+                title: "Succès!",
                 text: "État d'avancement mis à jour avec succès",
-                icon: 'success',
+                icon: "success",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
             affichage(); // Rafraîchir le tableau après la mise à jour
         }
         else {
             Swal.fire({
-                title: 'Erreur!',
+                title: "Erreur!",
                 text: "Erreur lors de la mise à jour de l'état d'avancement",
-                icon: 'error',
+                icon: "error",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         }
     })
         .catch((error) => {
         console.error("Erreur:", error);
         Swal.fire({
-            title: 'Erreur!',
+            title: "Erreur!",
             text: "Erreur lors de la mise à jour de l'état d'avancement",
-            icon: 'error',
+            icon: "error",
             timer: 3000,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
     });
 }
@@ -567,7 +596,9 @@ function afficherDetailsCargaison(cargaisonId) {
                     <option value="perdu" ${produit.etape_produit === "perdu" ? "selected" : ""}>Perdu</option>
                     <option value="archive" ${produit.etape_produit === "archive" ? "selected" : ""}>Archive</option>
                     <option value="annuler" ${produit.etape_produit === "annuler" ? "selected" : ""}>Annuler</option>
-                    <option value="non-recuperer" ${produit.etape_produit === "non-recuperer" ? "selected" : ""}>non-recuperer</option>
+                    <option value="non-recuperer" ${produit.etape_produit === "non-recuperer"
+                        ? "selected"
+                        : ""}>non-recuperer</option>
                   </select>
                   <button class="text-red-600 hover:text-red-900 ml-2 deleteProduit" data-cargaison-id="${cargaison.idcargo}" data-produit-id="${produit.idproduit}" data-produit-etape="${produit.etape_produit}">
                     <i class="fas fa-trash"></i>
@@ -587,12 +618,12 @@ function afficherDetailsCargaison(cargaisonId) {
             document.getElementById("modal-content").innerHTML = modalContent;
             document.getElementById("modal-detail")?.classList.remove("hidden");
             // Ajouter un écouteur d'événements pour le bouton de suppression
-            document.querySelectorAll('.deleteProduit').forEach(item => {
-                item.addEventListener('click', (event) => {
+            document.querySelectorAll(".deleteProduit").forEach((item) => {
+                item.addEventListener("click", (event) => {
                     const target = event.currentTarget;
-                    const cargaisonId = target.getAttribute('data-cargaison-id');
-                    const produitId = target.getAttribute('data-produit-id');
-                    const produitEtape = target.getAttribute('data-produit-etape');
+                    const cargaisonId = target.getAttribute("data-cargaison-id");
+                    const produitId = target.getAttribute("data-produit-id");
+                    const produitEtape = target.getAttribute("data-produit-etape");
                     console.log(`Produit ID: ${produitId}, Étape: ${produitEtape}`);
                     if (cargaisonId && produitId && produitEtape) {
                         supprimerProduit(cargaisonId, produitId, produitEtape);
@@ -600,10 +631,12 @@ function afficherDetailsCargaison(cargaisonId) {
                 });
             });
             // Ajouter un écouteur d'événements pour le bouton select pour changer etape produit
-            document.querySelectorAll(".etat-avancement-select-prod").forEach((select) => {
+            document
+                .querySelectorAll(".etat-avancement-select-prod")
+                .forEach((select) => {
                 select.addEventListener("change", (event) => {
                     const target = event.target;
-                    const cargaisonId = target.getAttribute('data-cargaison-id');
+                    const cargaisonId = target.getAttribute("data-cargaison-id");
                     const produitId = target.getAttribute("data-produit-id");
                     console.log(produitId);
                     const newEtat = target.value;
@@ -621,11 +654,11 @@ function supprimerProduit(cargaisonId, produitId, etape) {
     console.log(`Tentative de suppression du produit avec ID: ${produitId} et étape: ${etape}`);
     if (etape != "en_attente") {
         Swal.fire({
-            title: 'Erreur!',
+            title: "Erreur!",
             text: "Vous ne pouvez supprimer un produit que si son étape est 'En attente'",
-            icon: 'error',
+            icon: "error",
             timer: 3000,
-            showConfirmButton: false
+            showConfirmButton: false,
         });
         return;
     }
@@ -639,24 +672,24 @@ function supprimerProduit(cargaisonId, produitId, etape) {
         })
             .then((response) => response.json())
             .then((data) => {
-            console.log('Réponse du serveur :', data);
+            console.log("Réponse du serveur :", data);
             if (data.status === "success") {
                 afficherDetailsCargaison(cargaisonId); // Rafraîchir la vue
                 Swal.fire({
-                    title: 'Succès!',
+                    title: "Succès!",
                     text: `Produit avec ID: ${produitId} a été supprimé avec succès`,
-                    icon: 'success',
+                    icon: "success",
                     timer: 3000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
                 });
             }
             else {
                 Swal.fire({
-                    title: 'Erreur!',
+                    title: "Erreur!",
                     text: data.message,
-                    icon: 'error',
+                    icon: "error",
                     timer: 3000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
                 });
                 console.error("Erreur lors de la suppression du produit : " + data.message);
             }
@@ -664,11 +697,11 @@ function supprimerProduit(cargaisonId, produitId, etape) {
             .catch((error) => {
             console.error("Erreur:", error);
             Swal.fire({
-                title: 'Erreur!',
+                title: "Erreur!",
                 text: "Erreur lors de la suppression du produit",
-                icon: 'error',
+                icon: "error",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         });
     }
@@ -691,22 +724,22 @@ function changerEtapeProduit(cargaisonId, produitId, newEtape) {
         .then((data) => {
         if (data.status === "success") {
             Swal.fire({
-                title: 'Succès!',
+                title: "Succès!",
                 text: "État d'avancement mis à jour avec succès",
-                icon: 'success',
+                icon: "success",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
             afficherDetailsCargaison(cargaisonId); // Rafraîchir la vue
         }
         else {
             // alert("Erreur lors de la mise à jour de l'étape : " + data.message);
             Swal.fire({
-                title: 'Erreur!',
+                title: "Erreur!",
                 text: data.message,
-                icon: 'error',
+                icon: "error",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         }
     })
@@ -894,16 +927,16 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
     }
 });
 // ---------------------------------cacher afficher champ toxicité--------------------
-document.addEventListener('DOMContentLoaded', () => {
-    const typeProduitSelect = document.getElementById('type-produit');
-    const toxiciteField = document.getElementById('toxicite-field');
+document.addEventListener("DOMContentLoaded", () => {
+    const typeProduitSelect = document.getElementById("type-produit");
+    const toxiciteField = document.getElementById("toxicite-field");
     if (typeProduitSelect && toxiciteField) {
-        typeProduitSelect.addEventListener('change', () => {
-            if (typeProduitSelect.value === 'chimique') {
-                toxiciteField.style.display = 'block';
+        typeProduitSelect.addEventListener("change", () => {
+            if (typeProduitSelect.value === "chimique") {
+                toxiciteField.style.display = "block";
             }
             else {
-                toxiciteField.style.display = 'none';
+                toxiciteField.style.display = "none";
             }
         });
     }
@@ -931,3 +964,4 @@ document.getElementById("close-modal-detail")?.addEventListener("click", () => {
     if (modal)
         modal.classList.add("hidden");
 });
+export {};
