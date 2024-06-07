@@ -82,223 +82,91 @@
                     }
                 },
                 {
-                    "idproduit": "PRD372",
-                    "numero_produit": "Et ducimus laborios",
-                    "nom_produit": "Et ducimus laborios",
-                    "type_produit": "incassable",
-                    "etape_produit": "En cours",
-                    "poids": "6",
-                    "emeteur": {
-                        "idclient": "CLT341",
-                        "nom_client": "Esse accusantium si",
-                        "prenom_client": "Aliquam aut minus la",
-                        "telephone_client": 44,
-                        "email_client": "sytagoqa@mailinator.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST128",
-                        "nom_client": "Voluptate esse esse",
-                        "prenom_client": "Dolore ut laboris ab",
-                        "telephone_client": 3,
-                        "email_client": "bojub@mailinator.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD222",
-                    "numero_produit": "Et ducimus laborios",
-                    "nom_produit": "Et ducimus laborios",
-                    "type_produit": "incassable",
-                    "etape_produit": "En cours",
-                    "poids": "6",
-                    "emeteur": {
-                        "idclient": "CLT548",
-                        "nom_client": "Esse accusantium si",
-                        "prenom_client": "Aliquam aut minus la",
-                        "telephone_client": 44,
-                        "email_client": "sytagoqa@mailinator.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST160",
-                        "nom_client": "Voluptate esse esse",
-                        "prenom_client": "Dolore ut laboris ab",
-                        "telephone_client": 3,
-                        "email_client": "bojub@mailinator.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD210",
-                    "numero_produit": "Vel et unde voluptas",
-                    "nom_produit": "Vel et unde voluptas",
+                    "idproduit": "PRD531",
+                    "numero_produit": "dhs",
+                    "nom_produit": "dhs",
                     "type_produit": "alimentaire",
-                    "etape_produit": "arrivee",
-                    "poids": "7",
-                    "emeteur": {
-                        "idclient": "CLT278",
-                        "nom_client": "Doloribus dignissimo",
-                        "prenom_client": "Atque excepteur et m",
-                        "telephone_client": 78,
-                        "email_client": "rukyc@mailinator.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST392",
-                        "nom_client": "Asperiores aut eum m",
-                        "prenom_client": "Velit exercitatione",
-                        "telephone_client": 60,
-                        "email_client": "jefugov@mailinator.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD831",
-                    "numero_produit": "ccbc",
-                    "nom_produit": "ccbc",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT374",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST668",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD731",
-                    "numero_produit": "xbsb",
-                    "nom_produit": "xbsb",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT167",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST108",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD178",
-                    "numero_produit": "fdf",
-                    "nom_produit": "fdf",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT591",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST493",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD122",
-                    "numero_produit": "dev",
-                    "nom_produit": "dev",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "7",
-                    "emeteur": {
-                        "idclient": "CLT237",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST995",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD88",
-                    "numero_produit": "mangue",
-                    "nom_produit": "mangue",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
+                    "etape_produit": "en_attente",
                     "poids": "3",
                     "emeteur": {
-                        "idclient": "CLT677",
+                        "idclient": "CLT263",
                         "nom_client": "Gning",
                         "prenom_client": "Elimane",
                         "telephone_client": 776795840,
                         "email_client": "gningeli03@gmail.com"
                     },
                     "destinataire": {
-                        "idclient": "DEST166",
-                        "nom_client": "seck",
-                        "prenom_client": "fallou",
-                        "telephone_client": 783830020,
-                        "email_client": "seck22331@gmail.com"
+                        "idclient": "DEST103",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
                     }
                 },
                 {
-                    "idproduit": "PRD824",
+                    "idproduit": "PRD995",
+                    "numero_produit": "djd",
+                    "nom_produit": "djd",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "en_attente",
+                    "poids": "3",
+                    "emeteur": {
+                        "idclient": "CLT649",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST134",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    }
+                },
+                {
+                    "idproduit": "PRD880",
+                    "numero_produit": "djd",
+                    "nom_produit": "djd",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "en_attente",
+                    "poids": "3",
+                    "emeteur": {
+                        "idclient": "CLT475",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST598",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    }
+                },
+                {
+                    "idproduit": "PRD121",
                     "numero_produit": "",
                     "nom_produit": "",
                     "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
+                    "etape_produit": "en_attente",
                     "poids": "",
                     "emeteur": {
-                        "idclient": "CLT119",
+                        "idclient": "CLT445",
                         "nom_client": "",
                         "prenom_client": "",
                         "telephone_client": null,
                         "email_client": ""
                     },
                     "destinataire": {
-                        "idclient": "DEST754",
+                        "idclient": "DEST774",
                         "nom_client": "",
                         "prenom_client": "",
                         "telephone_client": null,
                         "email_client": ""
-                    }
-                },
-                {
-                    "idproduit": "PRD801",
-                    "numero_produit": "orange",
-                    "nom_produit": "orange",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "4",
-                    "emeteur": {
-                        "idclient": "CLT594",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST593",
-                        "nom_client": "Gning",
-                        "prenom_client": "Falou",
-                        "telephone_client": 783830020,
-                        "email_client": "seck22331@gmail.com"
                     }
                 }
             ],
@@ -318,96 +186,7 @@
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "en_attente",
             "etat_globale": "ferm\u00e9e",
-            "produits": [
-                {
-                    "idproduit": "PRD421",
-                    "numero_produit": "dsdsg",
-                    "nom_produit": "dsdsg",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT726",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST727",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD636",
-                    "numero_produit": "vc",
-                    "nom_produit": "vc",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "1",
-                    "emeteur": {
-                        "idclient": "CLT632",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST253",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD618",
-                    "numero_produit": "gssg",
-                    "nom_produit": "gssg",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT58",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST236",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD824",
-                    "numero_produit": "gssg",
-                    "nom_produit": "gssg",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT840",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 221776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST50",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 221776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                }
-            ]
+            "produits": []
         },
         {
             "idcargo": "665b3246b37ca",
@@ -423,30 +202,7 @@
             "type": "CargaisonMaritime",
             "etat_avancement": "en_route",
             "etat_globale": "ferm\u00e9e",
-            "produits": [
-                {
-                    "idproduit": "PRD41",
-                    "numero_produit": "dd",
-                    "nom_produit": "dd",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "En attente",
-                    "poids": "2",
-                    "emeteur": {
-                        "idclient": "CLT76",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST144",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                }
-            ]
+            "produits": []
         },
         {
             "idcargo": "665b32e06c725",
@@ -460,32 +216,9 @@
             "nom_cargaison": "Eligendi tenetur qui",
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_attente",
-            "etat_globale": "fermee",
-            "produits": [
-                {
-                    "idproduit": "PRD550",
-                    "numero_produit": "Facilis aute labore",
-                    "nom_produit": "Facilis aute labore",
-                    "type_produit": "Materiel",
-                    "etape_produit": "R\u00e9cup\u00e9r\u00e9",
-                    "poids": "34",
-                    "emeteur": {
-                        "idclient": "CLT718",
-                        "nom_client": "Beatae ipsa consect",
-                        "prenom_client": "Aperiam elit doloru",
-                        "telephone_client": 20,
-                        "email_client": "lesyg@mailinator.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST961",
-                        "nom_client": "Animi doloremque po",
-                        "prenom_client": "Doloremque exercitat",
-                        "telephone_client": 77,
-                        "email_client": "gojubusyb@mailinator.com"
-                    }
-                }
-            ]
+            "etat_avancement": "en_route",
+            "etat_globale": "ferm\u00e9e",
+            "produits": []
         },
         {
             "idcargo": "665b4995785cd",
@@ -577,29 +310,7 @@
             "type": "CargaisonMaritime",
             "etat_avancement": "arrivee",
             "etat_globale": "fermee",
-            "produits": [
-                {
-                    "idproduit": "PRD562",
-                    "nom_produit": "Aute explicabo Ipsu",
-                    "type_produit": "Alimentaire",
-                    "etape_produit": "Perdu",
-                    "poids": 86,
-                    "emeteur": {
-                        "idclient": "CLT462",
-                        "nom_client": "Proident quo adipis",
-                        "prenom_client": "Rerum eos enim numq",
-                        "telephone_client": 64,
-                        "email_client": "wiwejof@mailinator.com"
-                    },
-                    "destinataire": {
-                        "idclient": "CLT533",
-                        "nom_client": "Eaque assumenda proi",
-                        "prenom_client": "Officia aut obcaecat",
-                        "telephone_client": 11,
-                        "email_client": "wusijiwus@mailinator.com"
-                    }
-                }
-            ]
+            "produits": []
         }
     ]
 }

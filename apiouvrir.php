@@ -37,6 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
+           // Vérifier si la cargaison est perdue
+           if ($data['cargaisons'][$cargaisonKey]['etat_avancement'] === 'perdu') {
+            echo json_encode(['status' => 'error', 'message' => 'Cargaison perdue']);
+            exit;
+        }
+
+                // Vérifier si la cargaison est déjà fermée
+                if ($data['cargaisons'][$cargaisonKey]['etat_globale'] === 'ouvert') {
+                    echo json_encode(['status' => 'error', 'message' => 'Cargaison déjà ouvert']);
+                    exit;
+                }
+
         // Mettre à jour l'état de la cargaison pour la fermer
         $data['cargaisons'][$cargaisonKey]['etat_globale'] = 'ouvert';
 

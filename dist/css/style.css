@@ -2022,10 +2022,6 @@ html {
   margin-left: auto;
   margin-right: auto;
 }
-.mx-20 {
-  margin-left: 5rem;
-  margin-right: 5rem;
-}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -2064,15 +2060,6 @@ html {
 }
 .mt-4 {
   margin-top: 1rem;
-}
-.mr-10 {
-  margin-right: 2.5rem;
-}
-.ml-10 {
-  margin-left: 2.5rem;
-}
-.ml-20 {
-  margin-left: 5rem;
 }
 .block {
   display: block;
@@ -2306,14 +2293,14 @@ html {
 .pl-8 {
   padding-left: 2rem;
 }
+.pl-9 {
+  padding-left: 2.25rem;
+}
 .pr-4 {
   padding-right: 1rem;
 }
 .pt-5 {
   padding-top: 1.25rem;
-}
-.pl-9 {
-  padding-left: 2.25rem;
 }
 .text-left {
   text-align: left;

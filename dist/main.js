@@ -202,94 +202,6 @@ document.querySelector("#type-filtre")?.addEventListener("change", () => {
 // Appel initial pour afficher les cargaisons existantes
 affichage();
 //--------------------Ajouter Produit--------------------------------------------
-// function ajouterProduit(cargaisonNum: string): void {
-//   const idproduit = "PRD" + Math.floor(Math.random() * 1000);
-//   let formData = new FormData();
-//   formData.append("action", "addProduit");
-//   formData.append("idproduit", idproduit);
-//   formData.append(
-//     "numero_produit",
-//     (document.getElementById("nom-produit") as HTMLInputElement)?.value.trim()
-//   );
-//   formData.append(
-//     "nom_produit",
-//     (document.getElementById("nom-produit") as HTMLInputElement).value.trim()
-//   );
-//   formData.append(
-//     "type_produit",
-//     (document.getElementById("type-produit") as HTMLSelectElement).value.trim()
-//   );
-//   formData.append(
-//     "etape_produit",
-//     (document.getElementById("etape-produit") as HTMLSelectElement).value.trim()
-//   );
-//   formData.append(
-//     "poids",
-//     (document.getElementById("poids-produit") as HTMLInputElement).value.trim()
-//   );
-//   const toxiciteElement = document.getElementById("toxicite") as HTMLInputElement;
-//   if (toxiciteElement && (document.getElementById("type-produit") as HTMLSelectElement).value.trim() === 'chimique') {
-//     formData.append("toxicite", toxiciteElement.value.trim());
-//   }
-//   formData.append("cargaisonNum", cargaisonNum);
-//   const emeteur: Client = {
-//     idclient: "CLT" + Math.floor(Math.random() * 1000),
-//     nom_client: (
-//       document.getElementById("nom-client") as HTMLInputElement
-//     ).value.trim(),
-//     prenom_client: (
-//       document.getElementById("prenom-client") as HTMLInputElement
-//     ).value.trim(),
-//     telephone_client: parseInt(
-//       (
-//         document.getElementById("telephone-client") as HTMLInputElement
-//       ).value.trim(),
-//       10
-//     ),
-//     email_client: (
-//       document.getElementById("email-client") as HTMLInputElement
-//     ).value.trim(),
-//   };
-//   formData.append("emeteur", JSON.stringify(emeteur));
-//   const destinataire: Client = {
-//     idclient: "DEST" + Math.floor(Math.random() * 1000),
-//     nom_client: (
-//       document.getElementById("nom-destinateur") as HTMLInputElement
-//     ).value.trim(),
-//     prenom_client: (
-//       document.getElementById("prenom-destinateur") as HTMLInputElement
-//     ).value.trim(),
-//     telephone_client: parseInt(
-//       (
-//         document.getElementById("telephone-destinateur") as HTMLInputElement
-//       ).value.trim(),
-//       10
-//     ),
-//     email_client: (
-//       document.getElementById("email-destinateur") as HTMLInputElement
-//     ).value.trim(),
-//   };
-//   formData.append("destinataire", JSON.stringify(destinataire));
-//   fetch("apiAjoutProduit.php", {
-//     method: "POST",
-//     body: formData,
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       if (data.status === "success") {
-//         alert(data.message);
-//         (
-//           document.getElementById("form-add-produit") as HTMLFormElement
-//         ).reset();
-//       } else {
-//         alert("Erreur lors de l'ajout du produit : " + data.message);
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Erreur:", error);
-//       alert("Erreur lors de l'ajout du produit");
-//     });
-// }
 const envoieSMS = (numero, message) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "App 633b92473c572a1487a29b7678a73113-ede9fb24-c77d-4d99-90ed-290b0d53a501");
@@ -354,13 +266,6 @@ function ajouterProduit(cargaisonNum) {
         .then((response) => response.json())
         .then((data) => {
         if (data.status === "success") {
-            // Envoie SMS à l'emetteur et au destinataire
-            const emetteurNumero = `+221${emeteur.telephone_client}`;
-            const destinataireNumero = `+221${destinataire.telephone_client}`;
-            const messageEmetteur = `Votre colis a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de votre confiance.`;
-            const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${Cargaison.lieu_arrivee}  le ${data.date_arrivee}.`;
-            envoieSMS(emetteurNumero, messageEmetteur);
-            envoieSMS(destinataireNumero, messageDestinataire);
             Swal.fire({
                 icon: "success",
                 title: "Succès",

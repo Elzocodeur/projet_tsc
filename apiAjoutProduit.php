@@ -1,10 +1,10 @@
 <?php
 
-// Inclure l'autoloader de Composer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
+require_once('/var/www/html/projet_tsc/vendor/tecnickcom/tcpdf/tcpdf.php');
 
 header('Content-Type: application/json');
 
@@ -22,8 +22,8 @@ function writeJSON($filename, $data)
     file_put_contents($filename, $json_data);
 }
 
-// Fonction pour envoyer un email
-function envoyerEmail($destinataire, $sujet, $message)
+// Fonction pour envoyer un email avec une pièce jointe
+function envoyerEmailAvecPieceJointe($destinataire, $sujet, $message, $piecesJointes)
 {
     $mail = new PHPMailer(true);
     try {
@@ -43,13 +43,81 @@ function envoyerEmail($destinataire, $sujet, $message)
         // Contenu
         $mail->isHTML(true);
         $mail->Subject = $sujet;
-        $mail->Body    = $message;
+        $mail->Body = $message;
+
+        // Ajouter les pièces jointes
+        foreach ($piecesJointes as $pieceJointe) {
+            $mail->addAttachment($pieceJointe);
+        }
 
         $mail->send();
         return true;
     } catch (Exception $e) {
         return false;
     }
+}
+
+// Fonction pour générer une facture en format PDF
+function genererFacturePDF($produit, $cargaison)
+{
+    // Création d'une instance de TCPDF
+    $pdf = new TCPDF();
+    $pdf->AddPage();
+
+    $html = '
+        <h1>Facture</h1>
+        <table border="1" cellpadding="4">
+            <tr>
+                <th>Nom du client</th>
+                <td>' . $produit['emeteur']['nom_client'] . '</td>
+            </tr>
+            <tr>
+                <th>Prénom du client</th>
+                <td>' . $produit['emeteur']['prenom_client'] . '</td>
+            </tr>
+            <tr>
+                <th>Type de cargaison</th>
+                <td>' . $cargaison['type'] . '</td>
+            </tr>
+            <tr>
+                <th>Date de départ</th>
+                <td>' . $cargaison['date_depart'] . '</td>
+            </tr>
+            <tr>
+                <th>Date d\'arrivée</th>
+                <td>' . $cargaison['date_arrivee'] . '</td>
+            </tr>
+            <tr>
+                <th>Lieu de départ</th>
+                <td>' . $cargaison['lieu_depart'] . '</td>
+            </tr>
+            <tr>
+                <th>Lieu d\'arrivée</th>
+                <td>' . $cargaison['lieu_arrivee'] . '</td>
+            </tr>
+            <tr>
+                <th>Nom du produit</th>
+                <td>' . $produit['nom_produit'] . '</td>
+            </tr>
+            <tr>
+                <th>Poids du produit</th>
+                <td>' . $produit['poids'] . ' kg</td>
+            </tr>
+            <tr>
+                <th>Numéro du produit</th>
+                <td>' . $produit['numero_produit'] . '</td>
+            </tr>
+        </table>
+    ';
+
+    $pdf->writeHTML($html);
+
+    $fileName = 'facture_' . $produit['numero_produit'] . '.pdf';
+    $filePath = '/var/www/html/projet_tsc/factures/' . $fileName; // Assurez-vous que ce répertoire existe et est accessible
+
+    $pdf->Output($filePath, 'F');
+
+    return $filePath;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'addProduit') {
             $produit = [
                 "idproduit" => $_POST['idproduit'],
-                "numero_produit" => $_POST['numero_produit'], 
+                "numero_produit" => $_POST['numero_produit'],
                 "nom_produit" => $_POST['nom_produit'],
                 "type_produit" => $_POST['type_produit'],
                 "etape_produit" => $_POST['etape_produit'],
@@ -111,19 +179,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             writeJSON('cargaisons.json', $data);
 
+            $pdfPath = genererFacturePDF($produit, $data['cargaisons'][$cargaisonKey]);
+
+            if (!$pdfPath) {
+                echo json_encode(['status' => 'error', 'message' => 'Erreur lors de la génération du PDF']);
+                exit;
+            }
+
             // Envoyer les emails
             $emailEmetteur = $produit['emeteur']['email_client'];
             $emailDestinataire = $produit['destinataire']['email_client'];
 
             $sujetEmetteur = 'Produit ajouté avec succès';
-            $messageEmetteur = 'Votre coli a été ajouté à la cargaison merci de votre confiance.';
+            $messageEmetteur = 'Votre colis a été ajouté à la cargaison. Merci de votre confiance.';
 
             $sujetDestinataire = 'Notification de Cargaison';
-            $messageDestinataire = 'Le colis de ' . $produit['emeteur']['nom_client'] . ' est ajouté dans la cargaison numéro ' . $cargaisonNum . 
-                '. Merci de se rendre à ' . $data['cargaisons'][$cargaisonKey]['lieu_arrivee'] . ' le ' . $data['cargaisons'][$cargaisonKey]['date_arrivee'] . '.';
+            $messageDestinataire = 'Le colis de ' . $produit['emeteur']['nom_client'] . ' a été ajouté à la cargaison numéro ' . $cargaisonNum .
+                '. Merci de vous rendre à ' . $data['cargaisons'][$cargaisonKey]['lieu_arrivee'] . ' le ' . $data['cargaisons'][$cargaisonKey]['date_arrivee'] . '.';
 
-            $emailEnvoyeEmetteur = envoyerEmail($emailEmetteur, $sujetEmetteur, $messageEmetteur);
-            $emailEnvoyeDestinataire = envoyerEmail($emailDestinataire, $sujetDestinataire, $messageDestinataire);
+            $emailEnvoyeEmetteur = envoyerEmailAvecPieceJointe($emailEmetteur, $sujetEmetteur, $messageEmetteur, [$pdfPath]);
+            $emailEnvoyeDestinataire = envoyerEmailAvecPieceJointe($emailDestinataire, $sujetDestinataire, $messageDestinataire, [$pdfPath]);
 
             if ($emailEnvoyeEmetteur && $emailEnvoyeDestinataire) {
                 echo json_encode(['status' => 'success', 'message' => 'Produit ajouté avec succès à la cargaison et emails envoyés']);
@@ -135,3 +210,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     echo json_encode(['status' => 'error', 'message' => 'Action non spécifiée ou incorrecte']);
 }
+

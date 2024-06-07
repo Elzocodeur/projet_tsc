@@ -129,7 +129,7 @@ $cargaisons = $data['cargaisons'];
                     <div class="flex-1 mr-4">
                         <label for="etape-produit" class="block text-sm font-medium text-gray-700">Étape produit</label>
                         <select id="etape-produit" class="mt-1 block w-full p-2 border border-gray-300 rounded">
-                            <option value="En attente">En attente</option>
+                            <option value="en_attente">En attente</option>
                             <option value="En cours">En cours</option>
                             <option value="Récupéré">Récupéré</option>
                             <option value="Perdu">Perdu</option>
