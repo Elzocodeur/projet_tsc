@@ -185,8 +185,53 @@
             "valeur_max": "67",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "en_attente",
-            "etat_globale": "ferm\u00e9e",
-            "produits": []
+            "etat_globale": "ouvert",
+            "produits": [
+                {
+                    "idproduit": "PRD908",
+                    "numero_produit": "mangue",
+                    "nom_produit": "mangue",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "en_attente",
+                    "poids": "3",
+                    "emeteur": {
+                        "idclient": "CLT80",
+                        "nom_client": "thiame",
+                        "prenom_client": "serigne mbaye",
+                        "telephone_client": 775752135,
+                        "email_client": "serignembayet@gmail.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST416",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    }
+                },
+                {
+                    "idproduit": "PRD831",
+                    "numero_produit": "",
+                    "nom_produit": "",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "en_attente",
+                    "poids": "",
+                    "emeteur": {
+                        "idclient": "CLT333",
+                        "nom_client": "",
+                        "prenom_client": "",
+                        "telephone_client": null,
+                        "email_client": ""
+                    },
+                    "destinataire": {
+                        "idclient": "DEST108",
+                        "nom_client": "",
+                        "prenom_client": "",
+                        "telephone_client": null,
+                        "email_client": ""
+                    }
+                }
+            ]
         },
         {
             "idcargo": "665b3246b37ca",

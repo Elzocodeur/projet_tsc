@@ -327,7 +327,7 @@ const envoieSMS = (numero: string, message: string) => {
     messages: [
       {
         destinations: [{ to: numero }],
-        from: "ServiceSMS",
+        from: "GP-Elzo",
         text: message,
       },
     ],
@@ -436,6 +436,16 @@ function ajouterProduit(cargaisonNum: string): void {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
+
+                // Envoie SMS à l'emetteur et au destinataire
+                const emetteurNumero = `+221${emeteur.telephone_client}`;
+                const destinataireNumero = `+221${destinataire.telephone_client}`;
+                const messageEmetteur = `Votre colis a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de votre confiance.`;
+                const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${data.lieu_arrivee}  le ${data.date_arrivee}.`;
+        
+                envoieSMS(emetteurNumero, messageEmetteur);
+                envoieSMS(destinataireNumero, messageDestinataire);
+
         Swal.fire({
           icon: "success",
           title: "Succès",
