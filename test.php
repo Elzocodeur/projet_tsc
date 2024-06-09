@@ -13,6 +13,18 @@
       </select>
 
 
+      ${
+                      cargaison.etat_avancement !== "perdu" &&
+                      cargaison.etat_avancement !== "arrivee" &&
+                      cargaison.etat_avancement !== "en_route" &&
+                      cargaison.etat_globale !== "fermee"
+                        ? `
+                    <option value="en_attente">En attente</option>
+                  `
+                        : ""
+                    }
+
+
 
       function ajouterProduit(cargaisonNum: string): void {
   const idproduit = "PRD" + Math.floor(Math.random() * 1000);

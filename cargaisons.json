@@ -12,7 +12,7 @@
             "nom_cargaison": "Commodo fugiat est",
             "valeur_max": "53",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "perdu",
+            "etat_avancement": "En attente",
             "etat_globale": "ouvert",
             "produits": [
                 {
@@ -184,8 +184,8 @@
             "nom_cargaison": "cargaison",
             "valeur_max": "67",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_attente",
-            "etat_globale": "ouvert",
+            "etat_avancement": "En attente",
+            "etat_globale": "fermee",
             "produits": [
                 {
                     "idproduit": "PRD908",
@@ -230,6 +230,28 @@
                         "telephone_client": null,
                         "email_client": ""
                     }
+                },
+                {
+                    "idproduit": "PRD236",
+                    "numero_produit": "rur",
+                    "nom_produit": "rur",
+                    "type_produit": "alimentaire",
+                    "etape_produit": "en_attente",
+                    "poids": "2",
+                    "emeteur": {
+                        "idclient": "CLT484",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    },
+                    "destinataire": {
+                        "idclient": "DEST927",
+                        "nom_client": "Gning",
+                        "prenom_client": "Elimane",
+                        "telephone_client": 776795840,
+                        "email_client": "gningeli03@gmail.com"
+                    }
                 }
             ]
         },
@@ -245,8 +267,8 @@
             "nom_cargaison": "cargaisons",
             "valeur_max": "200",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e",
+            "etat_avancement": "En attente",
+            "etat_globale": "fermee",
             "produits": []
         },
         {
@@ -262,7 +284,7 @@
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
             "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e",
+            "etat_globale": "fermee",
             "produits": []
         },
         {
@@ -277,7 +299,7 @@
             "nom_cargaison": "Ipsa libero ea nobi",
             "valeur_max": "15",
             "type": "CargaisonMaritime",
-            "etat_avancement": "en_attente",
+            "etat_avancement": "arrivee",
             "etat_globale": "fermee",
             "produits": [
                 {
@@ -339,7 +361,7 @@
             "valeur_max": "200",
             "type": "CargaisonMaritime",
             "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e"
+            "etat_globale": "fermee"
         },
         {
             "idcargo": "665c73319b434",
@@ -356,6 +378,86 @@
             "etat_avancement": "arrivee",
             "etat_globale": "fermee",
             "produits": []
+        },
+        {
+            "idcargo": "666472aa997d2",
+            "numero": "CRG70",
+            "lieu_depart": "Congo-Brazzaville",
+            "lieu_arrivee": "Groenland",
+            "distance_km": "8563.81",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-06-10",
+            "date_arrivee": "2025-07-20",
+            "nom_cargaison": "Elzo",
+            "valeur_max": "20",
+            "type": "CargaisonA\u00e9rienne",
+            "etat_avancement": "en_route",
+            "etat_globale": "fermee",
+            "produit": []
+        },
+        {
+            "idcargo": "666472b10d4ed",
+            "numero": "CRG363",
+            "lieu_depart": "Congo-Brazzaville",
+            "lieu_arrivee": "Groenland",
+            "distance_km": "8563.81",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-06-10",
+            "date_arrivee": "2025-07-20",
+            "nom_cargaison": "Elzo",
+            "valeur_max": "20",
+            "type": "CargaisonA\u00e9rienne",
+            "etat_avancement": "En attente",
+            "etat_globale": "fermee",
+            "produit": []
+        },
+        {
+            "idcargo": "6664783bb452e",
+            "numero": "CRG574",
+            "lieu_depart": "R\u00e9publique d\u00e9mocratique du Congo",
+            "lieu_arrivee": "Mauritanie",
+            "distance_km": "4392.96",
+            "poids_suporter": "poids",
+            "date_depart": "2024-06-10",
+            "date_arrivee": "2024-07-20",
+            "nom_cargaison": "sene",
+            "valeur_max": "123",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "En attente",
+            "etat_globale": "ferm\u00e9e",
+            "produit": []
+        },
+        {
+            "idcargo": "666478497aa94",
+            "numero": "CRG204",
+            "lieu_depart": "R\u00e9publique d\u00e9mocratique du Congo",
+            "lieu_arrivee": "Mauritanie",
+            "distance_km": "4392.96",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-06-10",
+            "date_arrivee": "2024-07-20",
+            "nom_cargaison": "sene",
+            "valeur_max": "123",
+            "type": "CargaisonRouti\u00e8re",
+            "etat_avancement": "en_route",
+            "etat_globale": "ferm\u00e9e",
+            "produit": []
+        },
+        {
+            "idcargo": "6664784d872bd",
+            "numero": "CRG566",
+            "lieu_depart": "R\u00e9publique d\u00e9mocratique du Congo",
+            "lieu_arrivee": "Mauritanie",
+            "distance_km": "4392.96",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-06-10",
+            "date_arrivee": "2024-07-20",
+            "nom_cargaison": "sene",
+            "valeur_max": "123",
+            "type": "CargaisonRouti\u00e8re",
+            "etat_avancement": "En attente",
+            "etat_globale": "ouvert",
+            "produit": []
         }
     ]
 }

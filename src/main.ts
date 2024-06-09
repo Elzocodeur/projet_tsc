@@ -122,7 +122,7 @@ function affichage(page: number = currentPage): void {
                   cargaison.numero
                 }"><i class=" fas fa-solid fa-plus"></i></button>
                 <button class="bg-blue-500 text-white px-1 py-1 rounded btn-fermer-cargo ${
-                  cargaison.etat_globale === "fermée" ? "bg-red-500" : ""
+                  cargaison.etat_globale === "fermee" ? "bg-red-500" : ""
                 }" type="button" data-id="${
           cargaison.idcargo
         }"><i class="fas fa-solid fa-lock"></i></button>
@@ -132,14 +132,12 @@ function affichage(page: number = currentPage): void {
           cargaison.idcargo
         }"><i class="fas fa-solid fa-lock" title="ouvrir cargaison"></i></button>
 
-     
-
           <select class="etat-avancement-select bg-gradient-to-b from-blue-500 to-blue-800 text-white text-lg p-2 rounded" data-id="${
             cargaison.idcargo
           }">
                     
                     ${
-                      cargaison.etat_globale === "fermée" &&
+                      cargaison.etat_globale === "fermee" &&
                       cargaison.etat_avancement === "en_route"
                         ? `
                     <option value="en_route">En route</option>
@@ -150,9 +148,9 @@ function affichage(page: number = currentPage): void {
                     }
                   ${
                     cargaison.etat_globale === "ouvert" &&
-                    cargaison.etat_avancement === "en_attente"
+                    cargaison.etat_avancement === "En attente"
                       ? `
-                    <option value="en_attente">En attente</option>
+                    <option value="En attente">En attente</option>
                     <option value="en_route">En route</option>
                   `
                       : ""
@@ -160,25 +158,15 @@ function affichage(page: number = currentPage): void {
 
                   ${
                     cargaison.etat_globale === "fermee" &&
-                    cargaison.etat_avancement === "en_attente"
+                    cargaison.etat_avancement === "En attente"
                       ? `
-                  <option value="en_attente">En attente</option>
+                  <option value="En attente">En attente</option>
                   <option value="en_route">En route</option>
                     `
                       : ""
                   }
 
-
-                    ${
-                      cargaison.etat_avancement !== "perdu" &&
-                      cargaison.etat_avancement !== "arrivee" &&
-                      cargaison.etat_avancement !== "en_route" &&
-                      cargaison.etat_globale !== "fermee"
-                        ? `
-                    <option value="en_attente">En attente</option>
-                  `
-                        : ""
-                    }
+                    
         </select>
 
 
@@ -336,8 +324,8 @@ const envoieSMS = (numero: string, message: string) => {
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: raw,
-    redirect: "follow",
+    body: raw
+    // redirect: "follow",
   };
 
   fetch("https://8gjzdr.api.infobip.com/sms/2/text/advanced", requestOptions)
@@ -439,6 +427,7 @@ function ajouterProduit(cargaisonNum: string): void {
 
                 // Envoie SMS à l'emetteur et au destinataire
                 const emetteurNumero = `+221${emeteur.telephone_client}`;
+
                 const destinataireNumero = `+221${destinataire.telephone_client}`;
                 const messageEmetteur = `Votre colis a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de votre confiance.`;
                 const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${data.lieu_arrivee}  le ${data.date_arrivee}.`;
@@ -898,100 +887,255 @@ function changerEtapeProduit(
     });
 }
 
-// ---------------------------------------fin---------------------------------------
+
+
+
+
 
 // -------------------------------ajouter cargaison-------------------------------------------------
-document
-  .getElementById("form-add-cargaison")
-  ?.addEventListener("submit", (event) => {
-    event.preventDefault();
+// document
+//   .getElementById("form-add-cargaison")
+//   ?.addEventListener("submit", (event) => {
+//     event.preventDefault();
 
-    const numero = "CRG" + Math.floor(Math.random() * 1000);
-    const typeCargaison = (
-      document.getElementById("type-cargaison") as HTMLSelectElement
-    ).value.trim();
-    const nom_cargaison = (
-      document.getElementById("nom-cargaison") as HTMLInputElement
-    ).value.trim();
-    const poids_suporter = (
-      document.getElementById("poids-suporter") as HTMLSelectElement
-    ).value.trim();
-    const date_depart = (
-      document.getElementById("date-depart") as HTMLInputElement
-    ).value.trim();
-    const date_arrivee = (
-      document.getElementById("date-arrivee") as HTMLInputElement
-    ).value.trim();
-    const lieu_depart = (
-      document.getElementById("depart") as HTMLInputElement
-    ).value.trim();
-    const lieu_arrivee = (
-      document.getElementById("arrivee") as HTMLInputElement
-    ).value.trim();
-    const distance_km = (
-      document.getElementById("distance") as HTMLInputElement
-    ).value.trim();
-    const valeur_max = (
-      document.getElementById("valeur-max") as HTMLInputElement
-    ).value.trim();
-    const etat_avancement = "en attente";
-    const etat_globale = "ouvert";
+//     const numero = "CRG" + Math.floor(Math.random() * 1000);
+//     const typeCargaison = (
+//       document.getElementById("type-cargaison") as HTMLSelectElement
+//     ).value.trim();
+//     const nom_cargaison = (
+//       document.getElementById("nom-cargaison") as HTMLInputElement
+//     ).value.trim();
+//     const poids_suporter = (
+//       document.getElementById("poids-suporter") as HTMLSelectElement
+//     ).value.trim();
+//     const date_depart = (
+//       document.getElementById("date-depart") as HTMLInputElement
+//     ).value.trim();
+//     const date_arrivee = (
+//       document.getElementById("date-arrivee") as HTMLInputElement
+//     ).value.trim();
+//     const lieu_depart = (
+//       document.getElementById("depart") as HTMLInputElement
+//     ).value.trim();
+//     const lieu_arrivee = (
+//       document.getElementById("arrivee") as HTMLInputElement
+//     ).value.trim();
+//     const distance_km = (
+//       document.getElementById("distance") as HTMLInputElement
+//     ).value.trim();
+//     const valeur_max = (
+//       document.getElementById("valeur-max") as HTMLInputElement
+//     ).value.trim();
+//     const etat_avancement = "en attente";
+//     const etat_globale = "ouvert";
 
-    const formData = new FormData();
-    formData.append("action", "addCargaison");
-    formData.append("numero", numero);
-    formData.append("lieu_depart", lieu_depart);
-    formData.append("lieu_arrivee", lieu_arrivee);
-    formData.append("distance_km", distance_km);
-    formData.append("type", typeCargaison);
-    formData.append("etat_avancement", etat_avancement);
-    formData.append("etat_globale", etat_globale);
-    formData.append("poids_suporter", poids_suporter);
-    formData.append("date_depart", date_depart);
-    formData.append("date_arrivee", date_arrivee);
-    formData.append("nom_cargaison", nom_cargaison);
-    formData.append("valeur_max", valeur_max);
+//     const formData = new FormData();
+//     formData.append("action", "addCargaison");
+//     formData.append("numero", numero);
+//     formData.append("lieu_depart", lieu_depart);
+//     formData.append("lieu_arrivee", lieu_arrivee);
+//     formData.append("distance_km", distance_km);
+//     formData.append("type", typeCargaison);
+//     formData.append("etat_avancement", etat_avancement);
+//     formData.append("etat_globale", etat_globale);
+//     formData.append("poids_suporter", poids_suporter);
+//     formData.append("date_depart", date_depart);
+//     formData.append("date_arrivee", date_arrivee);
+//     formData.append("nom_cargaison", nom_cargaison);
+//     formData.append("valeur_max", valeur_max);
 
-    fetch("api.php", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "success") {
-          alert(data.message);
+//     fetch("api.php", {
+//       method: "POST",
+//       body: formData,
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         if (data.status === "success") {
+//           alert(data.message);
 
-          // Mettre à jour le tableau avec les nouvelles données
-          affichage();
+//           // Mettre à jour le tableau avec les nouvelles données
+//           affichage();
 
-          // Réinitialiser les données du formulaire en utilisant reset()
-          (
-            document.getElementById("form-add-cargaison") as HTMLFormElement
-          ).reset();
+//           // Réinitialiser les données du formulaire en utilisant reset()
+//           (
+//             document.getElementById("form-add-cargaison") as HTMLFormElement
+//           ).reset();
 
-          // Fermer le modal
-          const modals = document.getElementById("modal");
-          if (modals) {
-            modals.classList.add("hidden");
-          } else {
-            console.error("Modal not found");
-          }
-        } else {
-          alert("Erreur lors de l'ajout de la cargaison");
-        }
-      })
-      .catch((error) => {
-        console.error("Erreur:", error);
-        alert("Erreur lors de l'ajout de la cargaison");
-      });
-    return false;
-  });
+//           // Fermer le modal
+//           const modals = document.getElementById("modal");
+//           if (modals) {
+//             modals.classList.add("hidden");
+//           } else {
+//             console.error("Modal not found");
+//           }
+//         } else {
+//           alert("Erreur lors de l'ajout de la cargaison");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Erreur:", error);
+//         alert("Erreur lors de l'ajout de la cargaison");
+//       });
+//     return false;
+//   });
 
 document.addEventListener("DOMContentLoaded", (event) => {
   affichage();
 });
 
 // // ******************validation du formulaire****************
+
+// document.getElementById("ajouter")?.addEventListener("click", function (event) {
+//   event.preventDefault();
+
+//   const typeCargaison = document.getElementById(
+//     "type-cargaison"
+//   ) as HTMLSelectElement;
+//   const nomCargaison = document.getElementById(
+//     "nom-cargaison"
+//   ) as HTMLInputElement;
+//   const poidsSuporter = document.getElementById(
+//     "poids-suporter"
+//   ) as HTMLSelectElement;
+//   const valeur = document.getElementById("valeur-max") as HTMLInputElement;
+//   const dateDepart = document.getElementById("date-depart") as HTMLInputElement;
+//   const dateArrivee = document.getElementById(
+//     "date-arrivee"
+//   ) as HTMLInputElement;
+//   const depart = document.getElementById("depart") as HTMLInputElement;
+//   const arrivee = document.getElementById("arrivee") as HTMLInputElement;
+//   const distance = document.getElementById("distance") as HTMLInputElement;
+
+//   const typeCargaisonError = document.getElementById(
+//     "type-cargaison-error"
+//   ) as HTMLSpanElement;
+//   const nomCargaisonError = document.getElementById(
+//     "nom-cargaison-error"
+//   ) as HTMLSpanElement;
+//   const poidsSuporterError = document.getElementById(
+//     "poids-suporter-error"
+//   ) as HTMLSpanElement;
+//   const valeurError = document.getElementById(
+//     "valeur-error"
+//   ) as HTMLSpanElement;
+//   const dateDepartError = document.getElementById(
+//     "date-depart-error"
+//   ) as HTMLSpanElement;
+//   const dateArriveeError = document.getElementById(
+//     "date-arrivee-error"
+//   ) as HTMLSpanElement;
+//   const departError = document.getElementById(
+//     "depart-error"
+//   ) as HTMLSpanElement;
+//   const arriveeError = document.getElementById(
+//     "arrivee-error"
+//   ) as HTMLSpanElement;
+//   const distanceError = document.getElementById(
+//     "distance-error"
+//   ) as HTMLSpanElement;
+
+//   let formIsValid = true;
+
+//   function validateField(
+//     field: HTMLInputElement | HTMLSelectElement,
+//     errorElement: HTMLElement
+//   ) {
+//     if (field.value.trim() === "") {
+//       errorElement.classList.remove("hidden");
+//       formIsValid = false;
+//     } else {
+//       errorElement.classList.add("hidden");
+//     }
+//   }
+
+//   function validateDateField() {
+//     const today = new Date().toISOString().split("T")[0];
+
+//     if (dateDepart.value < today) {
+//       dateDepartError.textContent =
+//         "La date de départ doit être supérieure ou égale à la date du jour";
+//       dateDepartError.classList.remove("hidden");
+//       formIsValid = false;
+//     } else {
+//       dateDepartError.classList.add("hidden");
+//     }
+
+//     if (dateArrivee.value < dateDepart.value) {
+//       dateArriveeError.textContent =
+//         "La date d'arrivée doit être supérieure ou égale à la date de départ";
+//       dateArriveeError.classList.remove("hidden");
+//       formIsValid = false;
+//     } else {
+//       dateArriveeError.classList.add("hidden");
+//     }
+//   }
+
+//   function validateNomCargaison() {
+//     const regex = /^[a-zA-Z\s]*$/;
+//     if (!regex.test(nomCargaison.value)) {
+//       nomCargaisonError.textContent =
+//         "Le nom de la cargaison ne peut contenir que des lettres et des espaces";
+//       nomCargaisonError.classList.remove("hidden");
+//       formIsValid = false;
+//     } else {
+//       nomCargaisonError.classList.add("hidden");
+//     }
+//   }
+
+//   validateField(typeCargaison, typeCargaisonError);
+//   validateField(nomCargaison, nomCargaisonError);
+//   validateField(poidsSuporter, poidsSuporterError);
+//   validateField(valeur, valeurError);
+//   validateField(dateDepart, dateDepartError);
+//   validateField(dateArrivee, dateArriveeError);
+//   validateField(depart, departError);
+//   validateField(arrivee, arriveeError);
+//   validateField(distance, distanceError);
+//   validateDateField();
+//   validateNomCargaison();
+
+//   if (formIsValid) {
+//     const formData = new FormData();
+//     formData.append("action", "addCargaison");
+//     formData.append("numero", "CRG" + Math.floor(Math.random() * 1000));
+//     formData.append("type", typeCargaison.value);
+//     formData.append("nom_cargaison", nomCargaison.value);
+//     formData.append("poids_suporter", poidsSuporter.value);
+//     formData.append("valeur_max", valeur.value);
+//     formData.append("date_depart", dateDepart.value);
+//     formData.append("date_arrivee", dateArrivee.value);
+//     formData.append("lieu_depart", depart.value);
+//     formData.append("lieu_arrivee", arrivee.value);
+//     formData.append("distance_km", distance.value);
+//     formData.append("etat_avancement", "en attente");
+//     formData.append("etat_globale", "ouvert");
+
+//     fetch("api.php", {
+//       method: "POST",
+//       body: formData,
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         if (data.status === "success") {
+//           alert(data.message);
+//           affichage(); // Rafraîchir le tableau après ajout
+
+//           // Fermer le modal
+//           const modal = document.getElementById("modal") as HTMLElement;
+//           if (modal) modal.classList.add("hidden");
+
+//           // Réinitialiser le formulaire
+//           (
+//             document.getElementById("form-add-cargaison") as HTMLFormElement
+//           ).reset();
+//         } else {
+//           alert("Erreur lors de l'ajout de la cargaison");
+//         }
+//       });
+//   }
+// });
+
+
 
 document.getElementById("ajouter")?.addEventListener("click", function (event) {
   event.preventDefault();
@@ -1115,8 +1259,9 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
     formData.append("lieu_depart", depart.value);
     formData.append("lieu_arrivee", arrivee.value);
     formData.append("distance_km", distance.value);
-    formData.append("etat_avancement", "en attente");
+    formData.append("etat_avancement", "En attente");
     formData.append("etat_globale", "ouvert");
+    // formData.append('produits')
 
     fetch("api.php", {
       method: "POST",
@@ -1129,7 +1274,7 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
           affichage(); // Rafraîchir le tableau après ajout
 
           // Fermer le modal
-          const modal = document.getElementById("modal") as HTMLElement;
+          const modal = document.getElementById("modal") as HTMLElement;;
           if (modal) modal.classList.add("hidden");
 
           // Réinitialiser le formulaire
@@ -1142,6 +1287,9 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
       });
   }
 });
+
+
+
 
 // ---------------------------------cacher afficher champ toxicité--------------------
 document.addEventListener("DOMContentLoaded", () => {
@@ -1162,6 +1310,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+
+
 
 //----------------Section Fermer les modals------------------------------------------------
 

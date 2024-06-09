@@ -1,5 +1,6 @@
 <?php
     $route = [
+        // '/main' => 'main',
         '/cargaison' => 'cargaison',
         '/produit' => 'produit',
     
@@ -15,5 +16,7 @@
         require_once "template/partial/navbar.html.php";
         require "template/" . $route[$uri] . ".html.php";
             // require 'index.html.php';
+    }else{
+        require_once 'main.html.php';
     }    
 ?>

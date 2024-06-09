@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Vérifier si la cargaison est déjà fermée
-        if ($data['cargaisons'][$cargaisonKey]['etat_globale'] === 'fermée') {
+        if ($data['cargaisons'][$cargaisonKey]['etat_globale'] === 'fermee') {
             echo json_encode(['status' => 'error', 'message' => 'Cargaison déjà fermée']);
             exit;
         }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
         // Mettre à jour l'état de la cargaison pour la fermer
-        $data['cargaisons'][$cargaisonKey]['etat_globale'] = 'fermée';
+        $data['cargaisons'][$cargaisonKey]['etat_globale'] = 'fermee';
 
         writeJSON('cargaisons.json', $data);
         echo json_encode(['status' => 'success', 'message' => 'Cargaison fermée avec succès']);
