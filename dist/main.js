@@ -217,19 +217,65 @@ const envoieSMS = (numero, message) => {
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
 };
+// Add event listener for form submission
+document.getElementById('form-add-produit')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let isValid = true;
+    // Validation for text fields to contain only letters and spaces
+    const textFields = [
+        'nom-produit', 'prenom-client', 'nom-client',
+        'nom-destinateur', 'prenom-destinateur'
+    ];
+    textFields.forEach(function (id) {
+        const element = document.getElementById(id);
+        if (!/^[A-Za-z\s]+$/.test(element.value.trim())) {
+            document.getElementById(id + '-error').classList.remove('hidden');
+            isValid = false;
+        }
+        else {
+            document.getElementById(id + '-error').classList.add('hidden');
+        }
+    });
+    // Validation for phone number fields to be between 9 and 12 digits
+    const phoneFields = ['telephone-client', 'telephone-destinateur'];
+    phoneFields.forEach(function (id) {
+        const element = document.getElementById(id);
+        if (!/^\d{9,12}$/.test(element.value.trim())) {
+            document.getElementById(id + '-error').classList.remove('hidden');
+            isValid = false;
+        }
+        else {
+            document.getElementById(id + '-error').classList.add('hidden');
+        }
+    });
+    // Email validation
+    const emailFields = ['email-client', 'email-destinateur'];
+    emailFields.forEach(function (id) {
+        const element = document.getElementById(id);
+        if (!element.validity.valid) {
+            document.getElementById(id + '-error').classList.remove('hidden');
+            isValid = false;
+        }
+        else {
+            document.getElementById(id + '-error').classList.add('hidden');
+        }
+    });
+    if (isValid) {
+        ajouterProduit("1234"); // Pass the actual cargaisonNum value here
+    }
+});
 function ajouterProduit(cargaisonNum) {
     const idproduit = "PRD" + Math.floor(Math.random() * 1000);
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("action", "addProduit");
     formData.append("idproduit", idproduit);
-    formData.append("numero_produit", document.getElementById("nom-produit")?.value.trim());
+    formData.append("numero_produit", document.getElementById("nom-produit").value.trim());
     formData.append("nom_produit", document.getElementById("nom-produit").value.trim());
     formData.append("type_produit", document.getElementById("type-produit").value.trim());
     formData.append("etape_produit", document.getElementById("etape-produit").value.trim());
     formData.append("poids", document.getElementById("poids-produit").value.trim());
     const toxiciteElement = document.getElementById("toxicite");
-    if (toxiciteElement &&
-        document.getElementById("type-produit").value.trim() === "chimique") {
+    if (toxiciteElement && document.getElementById("type-produit").value.trim() === "chimique") {
         formData.append("toxicite", toxiciteElement.value.trim());
     }
     formData.append("cargaisonNum", cargaisonNum);
@@ -256,11 +302,10 @@ function ajouterProduit(cargaisonNum) {
         .then((response) => response.json())
         .then((data) => {
         if (data.status === "success") {
-            // Envoie SMS à l'emetteur et au destinataire
             const emetteurNumero = `+221${emeteur.telephone_client}`;
             const destinataireNumero = `+221${destinataire.telephone_client}`;
             const messageEmetteur = `Votre colis a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de votre confiance.`;
-            const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${data.lieu_arrivee}  le ${data.date_arrivee}.`;
+            const messageDestinataire = `Le colis de ${emeteur.nom_client} a été ajouté à la cargaison numéro ${cargaisonNum}. Merci de vous rendre à ${data.lieu_arrivee} le ${data.date_arrivee}.`;
             envoieSMS(emetteurNumero, messageEmetteur);
             envoieSMS(destinataireNumero, messageDestinataire);
             Swal.fire({
@@ -293,7 +338,6 @@ function ajouterProduit(cargaisonNum) {
         });
     });
 }
-// Ajout de l'événement de soumission du formulaire de produit
 document
     .getElementById("form-add-produit")
     ?.addEventListener("submit", (event) => {
@@ -651,225 +695,6 @@ function changerEtapeProduit(cargaisonId, produitId, newEtape) {
     });
 }
 // -------------------------------ajouter cargaison-------------------------------------------------
-// document
-//   .getElementById("form-add-cargaison")
-//   ?.addEventListener("submit", (event) => {
-//     event.preventDefault();
-//     const numero = "CRG" + Math.floor(Math.random() * 1000);
-//     const typeCargaison = (
-//       document.getElementById("type-cargaison") as HTMLSelectElement
-//     ).value.trim();
-//     const nom_cargaison = (
-//       document.getElementById("nom-cargaison") as HTMLInputElement
-//     ).value.trim();
-//     const poids_suporter = (
-//       document.getElementById("poids-suporter") as HTMLSelectElement
-//     ).value.trim();
-//     const date_depart = (
-//       document.getElementById("date-depart") as HTMLInputElement
-//     ).value.trim();
-//     const date_arrivee = (
-//       document.getElementById("date-arrivee") as HTMLInputElement
-//     ).value.trim();
-//     const lieu_depart = (
-//       document.getElementById("depart") as HTMLInputElement
-//     ).value.trim();
-//     const lieu_arrivee = (
-//       document.getElementById("arrivee") as HTMLInputElement
-//     ).value.trim();
-//     const distance_km = (
-//       document.getElementById("distance") as HTMLInputElement
-//     ).value.trim();
-//     const valeur_max = (
-//       document.getElementById("valeur-max") as HTMLInputElement
-//     ).value.trim();
-//     const etat_avancement = "en attente";
-//     const etat_globale = "ouvert";
-//     const formData = new FormData();
-//     formData.append("action", "addCargaison");
-//     formData.append("numero", numero);
-//     formData.append("lieu_depart", lieu_depart);
-//     formData.append("lieu_arrivee", lieu_arrivee);
-//     formData.append("distance_km", distance_km);
-//     formData.append("type", typeCargaison);
-//     formData.append("etat_avancement", etat_avancement);
-//     formData.append("etat_globale", etat_globale);
-//     formData.append("poids_suporter", poids_suporter);
-//     formData.append("date_depart", date_depart);
-//     formData.append("date_arrivee", date_arrivee);
-//     formData.append("nom_cargaison", nom_cargaison);
-//     formData.append("valeur_max", valeur_max);
-//     fetch("api.php", {
-//       method: "POST",
-//       body: formData,
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         if (data.status === "success") {
-//           alert(data.message);
-//           // Mettre à jour le tableau avec les nouvelles données
-//           affichage();
-//           // Réinitialiser les données du formulaire en utilisant reset()
-//           (
-//             document.getElementById("form-add-cargaison") as HTMLFormElement
-//           ).reset();
-//           // Fermer le modal
-//           const modals = document.getElementById("modal");
-//           if (modals) {
-//             modals.classList.add("hidden");
-//           } else {
-//             console.error("Modal not found");
-//           }
-//         } else {
-//           alert("Erreur lors de l'ajout de la cargaison");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Erreur:", error);
-//         alert("Erreur lors de l'ajout de la cargaison");
-//       });
-//     return false;
-//   });
-document.addEventListener("DOMContentLoaded", (event) => {
-    affichage();
-});
-// // ******************validation du formulaire****************
-// document.getElementById("ajouter")?.addEventListener("click", function (event) {
-//   event.preventDefault();
-//   const typeCargaison = document.getElementById(
-//     "type-cargaison"
-//   ) as HTMLSelectElement;
-//   const nomCargaison = document.getElementById(
-//     "nom-cargaison"
-//   ) as HTMLInputElement;
-//   const poidsSuporter = document.getElementById(
-//     "poids-suporter"
-//   ) as HTMLSelectElement;
-//   const valeur = document.getElementById("valeur-max") as HTMLInputElement;
-//   const dateDepart = document.getElementById("date-depart") as HTMLInputElement;
-//   const dateArrivee = document.getElementById(
-//     "date-arrivee"
-//   ) as HTMLInputElement;
-//   const depart = document.getElementById("depart") as HTMLInputElement;
-//   const arrivee = document.getElementById("arrivee") as HTMLInputElement;
-//   const distance = document.getElementById("distance") as HTMLInputElement;
-//   const typeCargaisonError = document.getElementById(
-//     "type-cargaison-error"
-//   ) as HTMLSpanElement;
-//   const nomCargaisonError = document.getElementById(
-//     "nom-cargaison-error"
-//   ) as HTMLSpanElement;
-//   const poidsSuporterError = document.getElementById(
-//     "poids-suporter-error"
-//   ) as HTMLSpanElement;
-//   const valeurError = document.getElementById(
-//     "valeur-error"
-//   ) as HTMLSpanElement;
-//   const dateDepartError = document.getElementById(
-//     "date-depart-error"
-//   ) as HTMLSpanElement;
-//   const dateArriveeError = document.getElementById(
-//     "date-arrivee-error"
-//   ) as HTMLSpanElement;
-//   const departError = document.getElementById(
-//     "depart-error"
-//   ) as HTMLSpanElement;
-//   const arriveeError = document.getElementById(
-//     "arrivee-error"
-//   ) as HTMLSpanElement;
-//   const distanceError = document.getElementById(
-//     "distance-error"
-//   ) as HTMLSpanElement;
-//   let formIsValid = true;
-//   function validateField(
-//     field: HTMLInputElement | HTMLSelectElement,
-//     errorElement: HTMLElement
-//   ) {
-//     if (field.value.trim() === "") {
-//       errorElement.classList.remove("hidden");
-//       formIsValid = false;
-//     } else {
-//       errorElement.classList.add("hidden");
-//     }
-//   }
-//   function validateDateField() {
-//     const today = new Date().toISOString().split("T")[0];
-//     if (dateDepart.value < today) {
-//       dateDepartError.textContent =
-//         "La date de départ doit être supérieure ou égale à la date du jour";
-//       dateDepartError.classList.remove("hidden");
-//       formIsValid = false;
-//     } else {
-//       dateDepartError.classList.add("hidden");
-//     }
-//     if (dateArrivee.value < dateDepart.value) {
-//       dateArriveeError.textContent =
-//         "La date d'arrivée doit être supérieure ou égale à la date de départ";
-//       dateArriveeError.classList.remove("hidden");
-//       formIsValid = false;
-//     } else {
-//       dateArriveeError.classList.add("hidden");
-//     }
-//   }
-//   function validateNomCargaison() {
-//     const regex = /^[a-zA-Z\s]*$/;
-//     if (!regex.test(nomCargaison.value)) {
-//       nomCargaisonError.textContent =
-//         "Le nom de la cargaison ne peut contenir que des lettres et des espaces";
-//       nomCargaisonError.classList.remove("hidden");
-//       formIsValid = false;
-//     } else {
-//       nomCargaisonError.classList.add("hidden");
-//     }
-//   }
-//   validateField(typeCargaison, typeCargaisonError);
-//   validateField(nomCargaison, nomCargaisonError);
-//   validateField(poidsSuporter, poidsSuporterError);
-//   validateField(valeur, valeurError);
-//   validateField(dateDepart, dateDepartError);
-//   validateField(dateArrivee, dateArriveeError);
-//   validateField(depart, departError);
-//   validateField(arrivee, arriveeError);
-//   validateField(distance, distanceError);
-//   validateDateField();
-//   validateNomCargaison();
-//   if (formIsValid) {
-//     const formData = new FormData();
-//     formData.append("action", "addCargaison");
-//     formData.append("numero", "CRG" + Math.floor(Math.random() * 1000));
-//     formData.append("type", typeCargaison.value);
-//     formData.append("nom_cargaison", nomCargaison.value);
-//     formData.append("poids_suporter", poidsSuporter.value);
-//     formData.append("valeur_max", valeur.value);
-//     formData.append("date_depart", dateDepart.value);
-//     formData.append("date_arrivee", dateArrivee.value);
-//     formData.append("lieu_depart", depart.value);
-//     formData.append("lieu_arrivee", arrivee.value);
-//     formData.append("distance_km", distance.value);
-//     formData.append("etat_avancement", "en attente");
-//     formData.append("etat_globale", "ouvert");
-//     fetch("api.php", {
-//       method: "POST",
-//       body: formData,
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         if (data.status === "success") {
-//           alert(data.message);
-//           affichage(); // Rafraîchir le tableau après ajout
-//           // Fermer le modal
-//           const modal = document.getElementById("modal") as HTMLElement;
-//           if (modal) modal.classList.add("hidden");
-//           // Réinitialiser le formulaire
-//           (
-//             document.getElementById("form-add-cargaison") as HTMLFormElement
-//           ).reset();
-//         } else {
-//           alert("Erreur lors de l'ajout de la cargaison");
-//         }
-//       });
-//   }
-// });
 document.getElementById("ajouter")?.addEventListener("click", function (event) {
     event.preventDefault();
     const typeCargaison = document.getElementById("type-cargaison");
@@ -903,8 +728,7 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
     function validateDateField() {
         const today = new Date().toISOString().split("T")[0];
         if (dateDepart.value < today) {
-            dateDepartError.textContent =
-                "La date de départ doit être supérieure ou égale à la date du jour";
+            dateDepartError.textContent = "La date de départ doit être supérieure ou égale à la date du jour";
             dateDepartError.classList.remove("hidden");
             formIsValid = false;
         }
@@ -912,8 +736,7 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
             dateDepartError.classList.add("hidden");
         }
         if (dateArrivee.value < dateDepart.value) {
-            dateArriveeError.textContent =
-                "La date d'arrivée doit être supérieure ou égale à la date de départ";
+            dateArriveeError.textContent = "La date d'arrivée doit être supérieure ou égale à la date de départ";
             dateArriveeError.classList.remove("hidden");
             formIsValid = false;
         }
@@ -924,8 +747,7 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
     function validateNomCargaison() {
         const regex = /^[a-zA-Z\s]*$/;
         if (!regex.test(nomCargaison.value)) {
-            nomCargaisonError.textContent =
-                "Le nom de la cargaison ne peut contenir que des lettres et des espaces";
+            nomCargaisonError.textContent = "Le nom de la cargaison ne peut contenir que des lettres et des espaces";
             nomCargaisonError.classList.remove("hidden");
             formIsValid = false;
         }
@@ -959,19 +781,24 @@ document.getElementById("ajouter")?.addEventListener("click", function (event) {
         formData.append("distance_km", distance.value);
         formData.append("etat_avancement", "En attente");
         formData.append("etat_globale", "ouvert");
-        // formData.append('produits')
         fetch("api.php", {
             method: "POST",
             body: formData,
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then(response => response.json())
+            .then(data => {
             if (data.status === "success") {
-                alert(data.message);
-                affichage(); // Rafraîchir le tableau après ajout
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès",
+                    text: data.message,
+                    timer: 3000,
+                    showConfirmButton: false,
+                });
+                // Rafraîchir le tableau après ajout
+                affichage();
                 // Fermer le modal
                 const modal = document.getElementById("modal");
-                ;
                 if (modal)
                     modal.classList.add("hidden");
                 // Réinitialiser le formulaire
@@ -998,6 +825,79 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+// Modal handling
+const modalclient = document.getElementById("productModal");
+const btn = document.getElementById("view-product-btn");
+const span = document.getElementsByClassName("close")[0];
+const productSearch = document.getElementById("product-search");
+const productInfo = document.getElementById("product-info");
+const noProductMessage = document.getElementById("no-product-message");
+// Bouton pour ouvrir le modal
+btn?.addEventListener('click', function (e) {
+    e.preventDefault();
+    modalclient.classList.remove('hidden');
+    modalclient.style.display = "block";
+});
+// Bouton pour fermer le modal
+span?.addEventListener('click', function () {
+    modalclient.style.display = "none";
+});
+// Fermer le modal en cliquant en dehors de celui-ci
+window.addEventListener('click', function (event) {
+    if (event.target == modalclient) {
+        modalclient.style.display = "none";
+    }
+});
+// Fonction pour chercher un produit
+function chercherProduit(id) {
+    fetch('cargaisons.json')
+        .then(response => response.json())
+        .then((data) => {
+        // Vérifiez que data.cargaisons est défini et est un tableau
+        if (data && Array.isArray(data.cargaisons)) {
+            let productFound = false;
+            for (const cargaison of data.cargaisons) {
+                const product = cargaison.produits.find(p => p.idproduit === id);
+                if (product) {
+                    document.getElementById('product-name').innerText = product.nom_produit;
+                    document.getElementById('product-weight').innerText = product.poids;
+                    document.getElementById('product-stage').innerText = product.etape_produit;
+                    productInfo.classList.remove('hidden');
+                    noProductMessage.classList.add('hidden');
+                    productFound = true;
+                    break;
+                }
+            }
+            if (!productFound) {
+                productInfo.classList.add('hidden');
+                noProductMessage.classList.remove('hidden');
+            }
+        }
+        else {
+            console.error('Cargaisons non trouvées dans la réponse de l\'API');
+            productInfo.classList.add('hidden');
+            noProductMessage.classList.remove('hidden');
+        }
+    })
+        .catch(error => {
+        console.error('Erreur:', error);
+        productInfo.classList.add('hidden');
+        noProductMessage.classList.remove('hidden');
+    });
+}
+// Ajouter un écouteur d'événements pour la recherche de produit
+if (productSearch) {
+    productSearch.addEventListener('input', function () {
+        const productId = productSearch.value.trim();
+        if (productId) {
+            chercherProduit(productId);
+        }
+        else {
+            productInfo.classList.add('hidden');
+            noProductMessage.classList.add('hidden');
+        }
+    });
+}
 //----------------Section Fermer les modals------------------------------------------------
 document.getElementById("btn-add")?.addEventListener("click", () => {
     const modal = document.getElementById("modal");
@@ -1021,4 +921,4 @@ document.getElementById("close-modal-detail")?.addEventListener("click", () => {
     if (modal)
         modal.classList.add("hidden");
 });
-export {};
+

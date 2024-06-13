@@ -1,13 +1,11 @@
 <?php
 
-
 function readJSON($filename) {
     $json_data = file_get_contents($filename);
     return json_decode($json_data, true);
 }
 
 function writeJSON($filename, $data) {
-    echo $filename;
     $json_data = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json_data);
 }
@@ -35,13 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $data = readJSON('cargaisons.json');
         $data['cargaisons'][] = $newCargaison;
         writeJSON('cargaisons.json', $data);
-        
+
+        echo json_encode(['status' => 'success', 'message' => 'Cargaison ajoutée avec succès']);
         exit;
     }
-    
-    
-    
-    echo json_encode(['message' => 'cargaison ajouté avec succès']);
+
+    echo json_encode(['status' => 'error', 'message' => 'Action non reconnue']);
+    exit;
 }
-
-

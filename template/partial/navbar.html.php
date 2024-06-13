@@ -10,10 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">                                                                                                                                                                                                                          <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
     <style>
         .submenu {
@@ -203,11 +200,8 @@
     </div>
     <script type="module" src="./dist/main.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-
     <!-- ------------------------------------sweet alert2----------------- -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         let map, departMarker, arriveeMarker;
 

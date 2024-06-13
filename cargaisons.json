@@ -16,28 +16,6 @@
             "etat_globale": "ouvert",
             "produits": [
                 {
-                    "idproduit": "PRD688",
-                    "numero_produit": "",
-                    "nom_produit": "",
-                    "type_produit": "Alimentaire",
-                    "etape_produit": "en_cours",
-                    "poids": "",
-                    "emeteur": {
-                        "idclient": "CLT296",
-                        "nom_client": "",
-                        "prenom_client": "",
-                        "telephone_client": null,
-                        "email_client": ""
-                    },
-                    "destinataire": {
-                        "idclient": "DEST305",
-                        "nom_client": "",
-                        "prenom_client": "",
-                        "telephone_client": null,
-                        "email_client": ""
-                    }
-                },
-                {
                     "idproduit": "PRD676",
                     "numero_produit": "Officia et dolore qu",
                     "nom_produit": "Officia et dolore qu",
@@ -79,94 +57,6 @@
                         "prenom_client": "Aliquam tempora vel",
                         "telephone_client": 19,
                         "email_client": "lybafaq@mailinator.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD531",
-                    "numero_produit": "dhs",
-                    "nom_produit": "dhs",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "en_attente",
-                    "poids": "3",
-                    "emeteur": {
-                        "idclient": "CLT263",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST103",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD995",
-                    "numero_produit": "djd",
-                    "nom_produit": "djd",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "en_attente",
-                    "poids": "3",
-                    "emeteur": {
-                        "idclient": "CLT649",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST134",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD880",
-                    "numero_produit": "djd",
-                    "nom_produit": "djd",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "en_attente",
-                    "poids": "3",
-                    "emeteur": {
-                        "idclient": "CLT475",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    },
-                    "destinataire": {
-                        "idclient": "DEST598",
-                        "nom_client": "Gning",
-                        "prenom_client": "Elimane",
-                        "telephone_client": 776795840,
-                        "email_client": "gningeli03@gmail.com"
-                    }
-                },
-                {
-                    "idproduit": "PRD121",
-                    "numero_produit": "",
-                    "nom_produit": "",
-                    "type_produit": "alimentaire",
-                    "etape_produit": "en_attente",
-                    "poids": "",
-                    "emeteur": {
-                        "idclient": "CLT445",
-                        "nom_client": "",
-                        "prenom_client": "",
-                        "telephone_client": null,
-                        "email_client": ""
-                    },
-                    "destinataire": {
-                        "idclient": "DEST774",
-                        "nom_client": "",
-                        "prenom_client": "",
-                        "telephone_client": null,
-                        "email_client": ""
                     }
                 }
             ],
@@ -268,7 +158,7 @@
             "valeur_max": "200",
             "type": "CargaisonMaritime",
             "etat_avancement": "En attente",
-            "etat_globale": "fermee",
+            "etat_globale": "ouvert",
             "produits": []
         },
         {
@@ -283,8 +173,8 @@
             "nom_cargaison": "Eligendi tenetur qui",
             "valeur_max": "6",
             "type": "CargaisonA\u00e9rienne",
-            "etat_avancement": "en_route",
-            "etat_globale": "fermee",
+            "etat_avancement": "arrivee",
+            "etat_globale": "ouvert",
             "produits": []
         },
         {
@@ -440,21 +330,85 @@
             "valeur_max": "123",
             "type": "CargaisonRouti\u00e8re",
             "etat_avancement": "en_route",
-            "etat_globale": "ferm\u00e9e",
+            "etat_globale": "fermee",
             "produit": []
         },
         {
-            "idcargo": "6664784d872bd",
-            "numero": "CRG566",
-            "lieu_depart": "R\u00e9publique d\u00e9mocratique du Congo",
+            "idcargo": "66696761d5e99",
+            "numero": "CRG537",
+            "lieu_depart": "Zimbabwe",
             "lieu_arrivee": "Mauritanie",
-            "distance_km": "4392.96",
+            "distance_km": "5842.37",
+            "poids_suporter": "poids",
+            "date_depart": "2024-06-20",
+            "date_arrivee": "2024-07-22",
+            "nom_cargaison": "Fuga Dolorem repudi",
+            "valeur_max": "3",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "En attente",
+            "etat_globale": "ouvert",
+            "produit": []
+        },
+        {
+            "idcargo": "666967695eea5",
+            "numero": "CRG730",
+            "lieu_depart": "Zimbabwe",
+            "lieu_arrivee": "Mauritanie",
+            "distance_km": "5842.37",
+            "poids_suporter": "poids",
+            "date_depart": "2024-06-20",
+            "date_arrivee": "2024-07-22",
+            "nom_cargaison": "Fuga Dolorem repudi",
+            "valeur_max": "3",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "En attente",
+            "etat_globale": "ouvert",
+            "produit": []
+        },
+        {
+            "idcargo": "66696ebf1f370",
+            "numero": "CRG565",
+            "lieu_depart": "Angola",
+            "lieu_arrivee": "Mali",
+            "distance_km": "4352.97",
+            "poids_suporter": "poids",
+            "date_depart": "2024-06-23",
+            "date_arrivee": "2024-06-27",
+            "nom_cargaison": "Fuga Dolorem repudi",
+            "valeur_max": "2",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "En attente",
+            "etat_globale": "ouvert",
+            "produit": []
+        },
+        {
+            "idcargo": "66696f6b02a40",
+            "numero": "CRG765",
+            "lieu_depart": "Alg\u00e9rie",
+            "lieu_arrivee": "Togo",
+            "distance_km": "2436.47",
             "poids_suporter": "nombre",
-            "date_depart": "2024-06-10",
-            "date_arrivee": "2024-07-20",
-            "nom_cargaison": "sene",
-            "valeur_max": "123",
-            "type": "CargaisonRouti\u00e8re",
+            "date_depart": "2024-06-19",
+            "date_arrivee": "2024-06-20",
+            "nom_cargaison": "dev web",
+            "valeur_max": "12",
+            "type": "CargaisonMaritime",
+            "etat_avancement": "En attente",
+            "etat_globale": "fermee",
+            "produit": []
+        },
+        {
+            "idcargo": "666a3b91500e5",
+            "numero": "CRG542",
+            "lieu_depart": "R\u00e9publique d\u00e9mocratique du Congo",
+            "lieu_arrivee": "Mali",
+            "distance_km": "3647.54",
+            "poids_suporter": "nombre",
+            "date_depart": "2024-06-20",
+            "date_arrivee": "2024-06-30",
+            "nom_cargaison": "Fuga Dolorem repudi",
+            "valeur_max": "1",
+            "type": "CargaisonMaritime",
             "etat_avancement": "En attente",
             "etat_globale": "ouvert",
             "produit": []
